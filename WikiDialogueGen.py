@@ -1,8 +1,9 @@
 import json
+import os.path as path
 
-i2_file = "C:\\Users\\Matth\\Documents\\DataExtr\\Working_Code\\i2subset_english.json"
-output_file = "C:\\Users\\Matth\\Documents\\DataExtr\\Working_Code\\dialogue_output.txt"
-gde_file = "C:\\Users\\Matth\\Documents\\DataExtr\\Working_Code\\gde_data.json"
+i2_file = path.join(path.dirname(__file__),"i2subset_english.json")
+output_file = path.join(path.dirname(__file__),"dialogue_output.txt")
+gde_file = path.join(path.dirname(__file__),"gde_data.json")
 
 CHAR_CONVERT = {"catpepper": "Pepper",
                 "catginger": "Ginger",
@@ -38,5 +39,4 @@ with open(gde_file, "r", encoding="utf8") as file, open(output_file, "w", encodi
                 prev_quest = current_quest
                 output.writelines("\n\n")
                 output.writelines("<small>'''"+str(char_key)+"'''  "+str(quest_key)+"</small>")            
-
 

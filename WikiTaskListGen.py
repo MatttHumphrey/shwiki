@@ -1,4 +1,5 @@
 import json
+import os.path as path
 
 TOOL_CONVERT = {"gardentool":"Garden Tools", 
                "seedpouch":"Seed Pouch",
@@ -48,9 +49,9 @@ REWARD_CONVERT = {"birdcage":"Golden Cage",
                  "sketchtoolbox":"Workbench",
                  "timeskip":"Hourglass"}
 
-i2_file = "C:\\Users\\Matth\\Documents\\DataExtr\\Working_Code\\i2subset_english.json"
-gde_file = "C:\\Users\\Matth\\Documents\\DataExtr\\Working_Code\\gde_data.json"
-output_file = "C:\\Users\\Matth\\Documents\\DataExtr\\Working_Code\\task_output.txt"
+i2_file = path.join(path.dirname(__file__),"i2subset_english.json")
+gde_file = path.join(path.dirname(__file__),"gde_data.json")
+output_file = path.join(path.dirname(__file__),"task_output.txt")
 
 def get_questdescs():
     descriptions = {}
