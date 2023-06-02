@@ -68,7 +68,7 @@ def tasknumbers(loc, id):
     with open(gde_file, "r", encoding="utf8") as file:
         data = json.load(file)
         for line in data:
-            if data[line].get("1070") == "Quest" and data[line].get("18") == loc:
+            if data[line].get("1071") == "Quest" and data[line].get("18") == loc:
                 id_dict[data[line].get("2")] = f"{id}-{n}"
                 n += 1
     return id_dict
@@ -81,7 +81,7 @@ def main(loc, id):
         output.writelines("\'''Note:\''' Due to the game's constant updates, the tasks on this page may not always be accurate. If you have any new information, feel free to go to the \"Front Gate/Tasks\" page and edit accordingly.\n\n{| class=\"article-table\" style=\"font-size:15px;\"\n!style=\"width:100px\"|# \n!Name \n!style=\"width:100px\"|Opens \n!Items \n!Rewards \n|-\n")
         data = json.load(file)
         for line in data:
-            if data[line].get("1070") == "Quest" and data[line].get("18") == loc:
+            if data[line].get("1071") == "Quest" and data[line].get("18") == loc:
                 quest_key = data[line].get("2")
                 desc_key = data[line].get("34").lower()
                 unlock_list = []
@@ -109,4 +109,4 @@ def main(loc, id):
                 reward_key = "<br>".join(reward_list)
                 output.writelines(f"|{task_nos.get(quest_key)}\n|{descriptions.get(desc_key)}\n|{unlock_key}\n|{item_key}\n|{reward_key}\n|-\n") 
 
-numbers = main("Lighthouse","LGT")
+main("Lighthouse","LGT")   

@@ -39,7 +39,7 @@ def get_arealist():
     with open(gde_file, "r", encoding="utf8") as file:
         data = json.load(file)
         for line in data:
-            if data[line].get("1070") == "Quest":
+            if data[line].get("1071") == "Quest":
                 if data[line].get("20") not in area_list:
                     area_list.append(data[line].get("20"))
     remove_list = ['',"WinterFair2022_Shack","WinterFair2022_IceRink","WinterFair2022_Sledding","WinterFair2022_FerrisWheel","WinterFair2022_Train"]
@@ -54,7 +54,7 @@ def get_game_items():
     with open(gde_file, "r", encoding="utf8") as file:
         data = json.load(file)
         for line in data:
-            if data[line].get("1070") == "Quest":
+            if data[line].get("1071") == "Quest":
                 items = data[line].get("23")
                 counts = data[line].get("26")
                 for i in range(0,len(items)):
@@ -83,7 +83,7 @@ def get_area_items():
             area_total = {}
             loc = place.strip()
             for line in data:
-                if data[line].get("1070") == "Quest" and data[line].get("20") == place.strip():
+                if data[line].get("1071") == "Quest" and data[line].get("20") == place.strip():
                     items = data[line].get("23")
                     counts = data[line].get("26")
                     for i in range(0,len(items)):
@@ -113,7 +113,7 @@ def get_hard_items():
             area_total = {}
             loc = place.strip()
             for line in data:
-                if data[line].get("1070") == "Quest" and data[line].get("20") == place.strip():
+                if data[line].get("1071") == "Quest" and data[line].get("20") == place.strip():
                     items = data[line].get("23")
                     counts = data[line].get("26")
                     for i in range(0,len(items)):
@@ -142,7 +142,7 @@ def custom_hard_items(area):
         area_total = {}
         for place in areas:
             for line in data:
-                if data[line].get("1070") == "Quest" and data[line].get("20") == place.strip():
+                if data[line].get("1071") == "Quest" and data[line].get("20") == place.strip():
                     items = data[line].get("23")
                     counts = data[line].get("26")
                     for i in range(0,len(items)):

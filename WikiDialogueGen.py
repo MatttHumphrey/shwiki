@@ -23,7 +23,7 @@ with open(gde_file, "r", encoding="utf8") as file, open(output_file, "w", encodi
     prev_quest = None
     data = json.load(file)
     for line in data:
-        if data[line].get("1070") == "Dialogue":
+        if data[line].get("1071") == "Dialogue":
             current_quest = data[line].get("78")
             quest_key = descriptions.get(data[line].get("88"))
             char_key = data[line].get("94")
