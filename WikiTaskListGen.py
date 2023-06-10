@@ -40,7 +40,7 @@ def main(loc, id):
             desc_key = data[line].get("34").lower()
             unlock_list = []
             for item in data[line].get("5"):
-                unlock_list.append(task_nos[item]) if item in task_nos.keys() else unlock_list.append(item)
+                unlock_list.append(task_nos[item]) if item in task_nos.keys() else unlock_list.append(str(item))
             unlock_key = "<br>".join(unlock_list)
             item_dict = {}
             for i in range(0,len(data[line].get("23"))):
@@ -62,4 +62,4 @@ def main(loc, id):
             output.writelines(f"|-\n|{task_nos.get(quest_key)}\n|{descriptions.get(desc_key)}\n|{unlock_key}\n|{item_key}\n|{reward_key}\n") 
         output.writelines("|}")
 
-main("WreckShip","SHP")
+main("Festivegarden","FST")
