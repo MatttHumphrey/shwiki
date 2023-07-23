@@ -45,3 +45,7 @@ REWARD_CONVERT = {"birdcage":"Golden Cage",
                  "magictimer":"Magic Timer",
                  "sketchtoolbox":"Workbench",
                  "timeskip":"Hourglass"}
+
+CHAR_CONVERT = {"catpepper": "Pepper",
+                "catginger": "Ginger",
+                "catace": "Ace"}
