@@ -203,7 +203,4 @@ def main(loc, id):
     output.append("==Story==\n<div class=\"mw-collapsible mw-collapsed\">\nClick '''Expand''' to view dialogue\n<div class=\"mw-collapsible-content\">\n{{/Dialogue}}\n</div>\n</div>\n\n")
     output.append("==Tasks==\n{{/Tasks}}\n\n{{GameplayMenu}}\n[[Category:Areas]]\n__NOTOC__")
     text = "".join(output)
-    print(text)
-    wiki_upload(namekey, text) 
-
-main("Festivegarden","FST")
+    wiki_upload(namekey, text)

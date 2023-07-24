@@ -1,35 +1,7 @@
 import json
 import collections
 import os.path as path
-
-TOOL_CONVERT = {"gardentool":"Garden Tools", 
-               "seedpouch":"Seed Pouch",
-               "tree":"Tree of Lights",
-               "gardengloves":"Garden Gloves",
-               "cleaningtool":"Cleaning Tools",
-               "tools":"Tools",
-               "flower":"Yellow Lily",
-               "anemone":"Anemone",
-               "butterfly":"Butterfly",
-               "bench":"Bench",
-               "sketchtool":"Designing Tools",
-               "tile":"Tile",
-               "fond":"Pond",
-               "brick":"Brick",
-               "lemonbag":"Lemon Bag",
-               "paint":"Paints",
-               "vase":"Vase",
-               "light":"Light",
-               "statue":"Statue",
-               "screws":"Nails",
-               "birds":"Bird Statue",
-               "logs":"Logs",
-               "cleansers":"Cleansers",
-               "xp":"Experience Points (XP)",
-               "eventcoin":"EventCoin",
-               "stonebasket":"Stone Basket",
-               "terrarium":"Terrarium"} 
-
+from convert import TOOL_CONVERT
 
 gde_file = path.join(path.dirname(__file__),"gde_data.json")
 

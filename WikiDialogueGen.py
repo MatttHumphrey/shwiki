@@ -114,5 +114,3 @@ def full_dialogue():
                     output.writelines("\n\n")
                     output.writelines("<small>'''"+str(char_key)+"'''  "+str(quest_key)+"</small>")    
         output.writelines("</blockquote>\n[[Category:Dialogue]]")
-
-main("Movieset")

@@ -61,5 +61,3 @@ def main(loc, id):
             reward_key = "<br>".join(reward_list)
             output.writelines(f"|-\n|{task_nos.get(quest_key)}\n|{descriptions.get(desc_key)}\n|{unlock_key}\n|{item_key}\n|{reward_key}\n") 
         output.writelines("|}")
-
-main("Festivegarden","FST")
