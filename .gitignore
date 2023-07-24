@@ -1,6 +1,7 @@
 gde_data.json
 i2subset_english.json
-dialogue_output.txt
+area_dialogue_output.txt
+full_dialogue_output.txt
 task_output.txt
 game_items_output.txt
 hard_items_output.txt
