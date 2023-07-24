@@ -1,41 +1,22 @@
 import json
 import sys
 import os.path as path
+import difflib
 from convert import TOOL_CONVERT, REWARD_CONVERT
+from modules import I2_FILE, GDE_FILE, read_i2, get_arealist, tasknumbers
 
-i2_file = path.join(path.dirname(__file__),"i2subset_english.json")
-gde_file = path.join(path.dirname(__file__),"gde_data.json")
-output_file = path.join(path.dirname(__file__),"task_output.txt")
-
-def read_i2():
-    descriptions = {}
-    with open(i2_file, "r", encoding="utf8") as file:
-        data = json.load(file)
-        for line in data["mSource"]["mTerms"]:
-            descriptions[line.get("Term").lower()] = line.get("Languages")[0]
-    return descriptions
-
-def tasknumbers(loc, id):
-    id_dict = {}
-    n = 1
-    with open(gde_file, "r", encoding="utf8") as file:
-        data = json.load(file)
-        for line in data:
-            if data[line].get("1071") == "Quest" and data[line].get("18") == loc:
-                id_dict[data[line].get("2")] = f"{id}-{n}"
-                n += 1
-    return id_dict
 
 def main(loc, id):
+    OUTPUT_FILE = path.join(path.dirname(__file__),"task_output.txt")
     descriptions = read_i2()
     task_nos = tasknumbers(loc, id)
-    with open(gde_file, "r", encoding="utf8") as file:
+    with open(GDE_FILE, "r", encoding="utf8") as file:
         data = json.load(file)
-    with open(output_file, "w+", encoding="utf8") as output:
-        namekey = descriptions.get("questtitle_"+loc.lower()) if descriptions.get("questtitle_"+loc.lower()) != None else "Front Gate"
+    with open(OUTPUT_FILE, "w+", encoding="utf8") as output:
+        namekey = descriptions.get("questtitle_"+loc) if descriptions.get("questtitle_"+loc) != None else "Front Gate"
         output.writelines("\'''Note:\''' Due to the game's constant updates, the tasks on this page may not always be accurate. If you have any new information, feel free to go to the \""+namekey+"/Tasks\" page and edit accordingly.\n\n{| class=\"article-table\" style=\"font-size:15px;\"\n!style=\"width:100px\"|# \n!Name \n!style=\"width:100px\"|Opens \n!Items \n!Rewards \n")
         for line in data:
-            if data[line].get("1071") != "Quest" or data[line].get("18") != loc:
+            if data[line].get("1071") != "Quest" or data[line].get("18").lower() != loc:
                 continue
             quest_key = data[line].get("2")
             desc_key = data[line].get("34").lower()
@@ -62,11 +43,21 @@ def main(loc, id):
             reward_key = "<br>".join(reward_list)
             output.writelines(f"|-\n|{task_nos.get(quest_key)}\n|{descriptions.get(desc_key)}\n|{unlock_key}\n|{item_key}\n|{reward_key}\n") 
         output.writelines("|}")
+    print("Task completed.")
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: python WikiTaskListGen.py location loc_id")
     else:
-        location = sys.argv[1]
+        location = sys.argv[1].lower()
         loc_id = sys.argv[2]
-        main(location, loc_id)
+        valid_areas = get_arealist()
+        all_areas = list(valid_areas.keys()) + list(valid_areas.values())
+        if location in all_areas:
+            location = location if location in valid_areas.keys() else list(valid_areas.keys())[list(valid_areas.values()).index(location)]
+        else:
+            close_matches = difflib.get_close_matches(location, all_areas)
+            if close_matches:
+                print(f"Invalid area name. Did you mean '{close_matches[0]}'?")
+            else:
+                print("Invalid area name")

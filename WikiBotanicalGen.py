@@ -1,30 +1,12 @@
-from datetime import datetime
 import json
 import os.path as path
 import sys
-
-i2_file = path.join(path.dirname(__file__),"i2subset_english.json")
-gde_file = path.join(path.dirname(__file__),"gde_data.json")
-output_file = path.join(path.dirname(__file__),"plant_output.txt")
-
-def read_i2():
-    descriptions = {}
-    with open(i2_file, "r", encoding="utf8") as file:
-        data = json.load(file)
-        for line in data["mSource"]["mTerms"]:
-            descriptions[line.get("Term").lower()] = line.get("Languages")[0]
-    return descriptions
-
-def convert_date_format(input_date):
-    date_object = datetime.strptime(input_date, '%Y%m%d')
-    formatted_date = date_object.strftime('%B %d, %Y')
-    day = int(date_object.strftime('%d'))
-    suffix = 'th' if 11 <= int(day) <= 13 else {1: 'st', 2: 'nd', 3: 'rd'}.get(int(day) % 10, 'th')
-    return date_object.strftime('%B %d{}, %Y').format(suffix)
+from modules import GDE_FILE, read_i2, convert_date_format
 
 def main(name,filename):
+    output_file = path.join(path.dirname(__file__),"plant_output.txt")
     descriptions = read_i2()
-    with open(gde_file, "r", encoding="utf8") as file:
+    with open(GDE_FILE, "r", encoding="utf8") as file:
         data = json.load(file)
     with open(output_file, "w+", encoding="utf8") as output:
         for line in data:
