@@ -1,4 +1,5 @@
 import json
+import sys
 import os.path as path
 from convert import TOOL_CONVERT, REWARD_CONVERT
 
@@ -61,3 +62,11 @@ def main(loc, id):
             reward_key = "<br>".join(reward_list)
             output.writelines(f"|-\n|{task_nos.get(quest_key)}\n|{descriptions.get(desc_key)}\n|{unlock_key}\n|{item_key}\n|{reward_key}\n") 
         output.writelines("|}")
+
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python WikiBotanicalGen.py location loc_id")
+    else:
+        location = sys.argv[1]
+        loc_id = sys.argv[2]
+        main(location, loc_id)
