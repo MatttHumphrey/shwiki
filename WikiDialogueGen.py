@@ -1,4 +1,5 @@
 import json
+import sys
 import os.path as path
 from convert import CHAR_CONVERT
 
@@ -114,3 +115,18 @@ def full_dialogue():
                     output.writelines("\n\n")
                     output.writelines("<small>'''"+str(char_key)+"'''  "+str(quest_key)+"</small>")    
         output.writelines("</blockquote>\n[[Category:Dialogue]]")
+
+if __name__ == "__main__":
+    if sys.argv[1] == "full_dialogue":
+        if len(sys.argv) != 2:
+            print("Usage: python WikiDialogueGen.py full_dialogue")
+        else:
+            full_dialogue()
+    elif sys.argv[1] == "main":
+        if len(sys.argv) != 3:
+            print("Usage: python WikiDialogueGen.py full_dialogue location")
+        else:
+            location = sys.argv[2]
+            main(location)
+    else:
+        print("Invalid function name. Available functions: main, full_dialogue")
