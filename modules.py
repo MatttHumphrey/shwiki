@@ -1,4 +1,6 @@
 import json
+import difflib
+import sys
 import os.path as path
 from datetime import datetime
 
@@ -62,3 +64,17 @@ def locate_task(key,dic):
         if key in task:
             return area
     return None
+
+def close_area_match(location, valid_areas):
+    close_matches = difflib.get_close_matches(location, list(valid_areas.keys())+list(valid_areas.values()))
+    if close_matches:
+        choice = input(f"Did you mean '{close_matches[0]}'? (y/n)")
+        if choice.lower() == "y":
+            location = close_matches[0] if close_matches[0] in valid_areas.keys() else list(valid_areas.keys())[list(valid_areas.values()).index(close_matches[0])]
+            return location
+        else:
+            print("Invalid area name.")
+            sys.exit(1)
+    else:
+        print("Invalid area name.")
+        sys.exit(1)

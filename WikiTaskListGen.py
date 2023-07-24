@@ -3,8 +3,7 @@ import sys
 import os.path as path
 import difflib
 from convert import TOOL_CONVERT, REWARD_CONVERT
-from modules import I2_FILE, GDE_FILE, read_i2, get_arealist, tasknumbers
-
+from modules import GDE_FILE, read_i2, get_arealist, tasknumbers, close_area_match
 
 def main(loc, id):
     OUTPUT_FILE = path.join(path.dirname(__file__),"task_output.txt")
@@ -13,7 +12,7 @@ def main(loc, id):
     with open(GDE_FILE, "r", encoding="utf8") as file:
         data = json.load(file)
     with open(OUTPUT_FILE, "w+", encoding="utf8") as output:
-        namekey = descriptions.get("questtitle_"+loc) if descriptions.get("questtitle_"+loc) != None else "Front Gate"
+        namekey = descriptions.get("questtitle_"+loc, "N/A")
         output.writelines("\'''Note:\''' Due to the game's constant updates, the tasks on this page may not always be accurate. If you have any new information, feel free to go to the \""+namekey+"/Tasks\" page and edit accordingly.\n\n{| class=\"article-table\" style=\"font-size:15px;\"\n!style=\"width:100px\"|# \n!Name \n!style=\"width:100px\"|Opens \n!Items \n!Rewards \n")
         for line in data:
             if data[line].get("1071") != "Quest" or data[line].get("18").lower() != loc:
@@ -24,9 +23,7 @@ def main(loc, id):
             for item in data[line].get("5"):
                 unlock_list.append(task_nos[item]) if item in task_nos.keys() else unlock_list.append(str(item))
             unlock_key = "<br>".join(unlock_list)
-            item_dict = {}
-            for i in range(0,len(data[line].get("23"))):
-                item_dict[data[line].get("23")[i]] = data[line].get("26")[i]
+            item_dict = {item: count for item, count in zip(line.get("23"), line.get("26"))}
             item_list = []
             for item in data[line].get("23"):
                 if item == "EventCoin":
@@ -43,21 +40,18 @@ def main(loc, id):
             reward_key = "<br>".join(reward_list)
             output.writelines(f"|-\n|{task_nos.get(quest_key)}\n|{descriptions.get(desc_key)}\n|{unlock_key}\n|{item_key}\n|{reward_key}\n") 
         output.writelines("|}")
-    print("Task completed.")
+    print("Action completed.")
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: python WikiTaskListGen.py location loc_id")
+        sys.exit(1)
     else:
-        location = sys.argv[1].lower()
-        loc_id = sys.argv[2]
+        location, loc_id = sys.argv[1].lower(), sys.argv[2]
         valid_areas = get_arealist()
-        all_areas = list(valid_areas.keys()) + list(valid_areas.values())
-        if location in all_areas:
+        if location in valid_areas:
             location = location if location in valid_areas.keys() else list(valid_areas.keys())[list(valid_areas.values()).index(location)]
+            main(location, loc_id)
         else:
-            close_matches = difflib.get_close_matches(location, all_areas)
-            if close_matches:
-                print(f"Invalid area name. Did you mean '{close_matches[0]}'?")
-            else:
-                print("Invalid area name")
+            close_area_match(location, valid_areas)
+            main(location, loc_id)
