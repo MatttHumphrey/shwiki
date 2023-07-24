@@ -3,7 +3,7 @@ import sys
 import os.path as path
 import difflib
 from convert import TOOL_CONVERT, REWARD_CONVERT
-from modules import GDE_FILE, read_i2, get_arealist, tasknumbers, close_area_match
+from modules import GDE_FILE, read_i2, get_arealist, tasknumbers, match_location
 
 def main(loc, id):
     OUTPUT_FILE = path.join(path.dirname(__file__),"task_output.txt")
@@ -23,7 +23,7 @@ def main(loc, id):
             for item in data[line].get("5"):
                 unlock_list.append(task_nos[item]) if item in task_nos.keys() else unlock_list.append(str(item))
             unlock_key = "<br>".join(unlock_list)
-            item_dict = {item: count for item, count in zip(line.get("23"), line.get("26"))}
+            item_dict = {item: count for item, count in zip(data[line].get("23"), data[line].get("26"))}
             item_list = []
             for item in data[line].get("23"):
                 if item == "EventCoin":
@@ -48,10 +48,5 @@ if __name__ == "__main__":
         sys.exit(1)
     else:
         location, loc_id = sys.argv[1].lower(), sys.argv[2]
-        valid_areas = get_arealist()
-        if location in valid_areas:
-            location = location if location in valid_areas.keys() else list(valid_areas.keys())[list(valid_areas.values()).index(location)]
-            main(location, loc_id)
-        else:
-            close_area_match(location, valid_areas)
-            main(location, loc_id)
+        location = match_location(location)
+        main(location, loc_id)
