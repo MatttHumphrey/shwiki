@@ -6,8 +6,8 @@ game_items_output.txt
 hard_items_output.txt
 area_items_output.txt
 area_output.txt
+plant_output.txt
 custom_hard_items_output.txt
 quiz_output.txt
 __pycache__
-new.py
 core
