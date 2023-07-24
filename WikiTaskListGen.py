@@ -65,7 +65,7 @@ def main(loc, id):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python WikiBotanicalGen.py location loc_id")
+        print("Usage: python WikiTaskListGen.py location loc_id")
     else:
         location = sys.argv[1]
         loc_id = sys.argv[2]
