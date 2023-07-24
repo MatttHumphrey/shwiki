@@ -1,6 +1,7 @@
 from datetime import datetime
 import json
 import os.path as path
+import sys
 
 i2_file = path.join(path.dirname(__file__),"i2subset_english.json")
 gde_file = path.join(path.dirname(__file__),"gde_data.json")
@@ -30,7 +31,7 @@ def main(name,filename):
             if data[line].get("1071") == "PeriodicalEvent" and data[line].get("663") == "Plant_"+name:
                 start_date = convert_date_format(str(data[line].get("297")))
                 end_date = convert_date_format(str(data[line].get("299")))
-                desc = descriptions[data[line].get("679").lower()]
+                desc = descriptions[data[line].get("679").lower()].replace("\n"," ")
                 plant_number = data[line].get("76").split("_")[1]
                 plant_name = descriptions["categoryname_plant_"+name.lower()]
         for line in data:
@@ -39,6 +40,8 @@ def main(name,filename):
         cost = {}
         item_name = {}
         bubble_gem = {}
+        xp = {}
+        xp["01"] = 0
         for line in data:
             item_key = data[line].get("158")
             if data[line].get("1071") == "Item" and name in item_key and "SeedBox" not in item_key:
@@ -46,6 +49,7 @@ def main(name,filename):
                 cost[level] = data[line].get("211")
                 item_name[level] = descriptions["itemname_"+item_key.lower()]
                 bubble_gem[level] = data[line].get("223")
+                xp[str(int(level)+1).zfill(2)] = 1 if data[line].get("216") == "Item_61" else 0
         output.writelines("{{InfoboxPlant\n|image = <gallery>\nPlant"+filename+"01.png | Level 1\nPlant"+filename+"12.png | Level 12\nPlant"+filename+"inBG.png | Planted\n</gallery>\n")
         output.writelines("|type=Drop Item<br>Event Item\n|description=\n"+desc+"\n")
         output.writelines("|source=[[File:"+filename+"SeedBox03.png|15x15px]][[Plant Seed Boxes#"+plant_name+" Seed Box|Plant Seed Box]]<br>[[File:"+filename+"RareSeedBox01.png|15x15px]][[Plant Seed Boxes#"+plant_name+" Seed Box|Rare Plant Seed Box]]")
@@ -57,7 +61,7 @@ def main(name,filename):
         output.writelines("==Statistics==\n=== Merge Stages ===\n{| class=\"article-table\"\n|+\n"+plant_name+"\n!Lvl\n!Image\n!Item\n!Sell Price\n!Drops*\n")
         for i in sorted(list(cost.keys())):
             output.writelines("|-\n|"+i.lstrip("0")+"\n|style=\"text-align:center;\" |[[File:Plant"+filename+str(i)+".png|65x65px]]\n|"+item_name[i]+"\n|[[File:Coin.png|16px|link=Coins]] "+str(cost[i])+"\n")
-            if i in ["01","02","03"]:
+            if xp[i] == 0:
                 output.writelines("| -\n")
             else:
                 output.writelines("|1 [[Experience Points (XP)|XP Star]]\n")
@@ -68,3 +72,11 @@ def main(name,filename):
                 output.writelines("|-\n|"+i.lstrip("0")+"\n|{{Bubble|Plant"+filename+str(i)+".png}}\n|"+item_name[i]+"\n|[[File:Jewel.png|16px|link=Jewels]] "+str(bubble_gem[i])+"\n")
         output.writelines("|}\n<nowiki>**</nowiki>[[Double Bubble|Double Bubbles]] only appear for Levels 2 or higher, as they are created by merging. If not popped, they vanish after 60 seconds.\n\n")
         output.writelines("{{PlantEventMenu}}\n[[Category:Endangered Plants]]\n[[Category:Drops]]\n[[Category:Common Drops]]\n[[Category:Event Items]]\n__NOTOC__")
+
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python WikiBotanicalGen.py gde_name image_name")
+    else:
+        gde_name = sys.argv[1]
+        image_name = sys.argv[2]
+        main(gde_name, image_name)
