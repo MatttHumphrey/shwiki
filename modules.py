@@ -34,12 +34,24 @@ def get_arealist():
         for line in data:
             if data[line].get("1071") == "Quest":
                 area_key = data[line].get("20", "").lower()
-                if area_key != "" and area_key not in valid_areas:
+                if area_key and area_key not in valid_areas:
                     area_desc_key = f"namekey_{area_key}" if f"namekey_{area_key}" in descs else f"questtitle_{area_key}"
                     area_desc = descs.get(area_desc_key, "").lower()
-                    if area_desc:
-                        valid_areas[area_key] = area_desc
+                    valid_areas[area_key] = area_desc
     return valid_areas
+
+def get_plantlist():
+    descs = read_i2()
+    valid_plants = {}
+    with open(GDE_FILE, "r", encoding="utf8") as file:
+        data = json.load(file)
+        for line in data:
+            if data[line].get("1071") == "PeriodicalEvent" and data[line].get("663").split("_")[0] == "Plant":
+                plant_name = data[line].get("663").split("_")[1].lower()
+                if plant_name and plant_name not in valid_plants:
+                    plant_desc_key = f"categoryname_plant_{plant_name}"
+                    valid_plants[plant_name] = plant_desc_key
+    return valid_plants
 
 def convert_date_format(input_date):
     date_object = datetime.strptime(input_date, '%Y%m%d')
@@ -82,4 +94,23 @@ def match_location(location):
                 sys.exit(1)
         else:
             print("Invalid area name.")
+            sys.exit(1)
+
+def match_plant(plant):
+    valid_plants = get_plantlist()
+    if plant.lower() in valid_plants.keys() or plant.lower() in valid_plants.values():
+        plant = plant.lower() if plant.lower() in valid_plants.keys() else list(valid_plants.keys())[list(valid_plants.values()).index(plant.lower())]
+        return plant
+    else:    
+        close_matches = difflib.get_close_matches(plant, list(valid_plants.keys())+list(valid_plants.values()))
+        if close_matches:
+            choice = input(f"Did you mean '{close_matches[0]}'? (y/n)")
+            if choice.lower() == "y":
+                plant = close_matches[0] if close_matches[0] in valid_plants.keys() else list(valid_plants.keys())[list(valid_plants.values()).index(close_matches[0])]
+                return plant
+            else:
+                print("Invalid plant name.")
+                sys.exit(1)
+        else:
+            print("Invalid plant name.")
             sys.exit(1)
