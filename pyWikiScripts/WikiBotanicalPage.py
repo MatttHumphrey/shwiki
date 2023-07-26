@@ -40,14 +40,9 @@ def main(name,filename):
             desc = descriptions[data[line].get("679").lower()]
             plant_number = data[line].get("76").split("_")[1]
             plant_name = descriptions["categoryname_plant_"+name.lower()]
-            print(start_date)
-            print(end_date)
-            print(desc)
-            print(plant_name)
     for line in data:
         if data[line].get("1071") == "PeriodicalEvent" and data[line].get("76") == "Botanical_"+str(int(plant_number)-1):
             prev_plant = descriptions["categoryname_"+data[line].get("663").lower()]
-            print(prev_plant)  
     cost = {}
     item_name = {}
     bubble_gem = {}
@@ -82,5 +77,3 @@ def main(name,filename):
     output.append("{{PlantEventMenu}}\n[[Category:Endangered Plants]]\n[[Category:Drops]]\n[[Category:Common Drops]]\n[[Category:Event Items]]\n__NOTOC__")
     text = "".join(output)
     wiki_upload(plant_name,text)
-
-main("Dreamingpeony","DreamingPeony")
