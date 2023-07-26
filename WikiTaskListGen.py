@@ -2,8 +2,7 @@ import json
 import sys
 import os.path as path
 import difflib
-from convert import TOOL_CONVERT, REWARD_CONVERT
-from modules import GDE_FILE, read_i2, get_arealist, tasknumbers, match_location
+from modules import GDE_FILE, read_i2, tasknumbers, match_location
 
 def main(loc, id):
     OUTPUT_FILE = path.join(path.dirname(__file__),"task_output.txt")
@@ -30,13 +29,13 @@ def main(loc, id):
                     item_list.append(f"{item_dict[item]} [[File:LemonMoney.png|30px]] [[Lemon Event|Money]]")
                 else:
                     item_name, item_level = item.split("_")
-                    item_id = str(item_dict[item])+"x {{Item | "+TOOL_CONVERT[item_name.lower()]+" | "+item_level.lstrip("0")+"}}" if item_dict[item] != 1 else "{{Item | "+TOOL_CONVERT[item_name.lower()]+" | "+item_level.lstrip("0")+"}}"
+                    item_id = str(item_dict[item])+"x {{Item | "+descriptions.get("categoryname_"+item_name.lower())+" | "+item_level.lstrip("0")+"}}" if item_dict[item] != 1 else "{{Item | "+descriptions.get("categoryname_"+item_name.lower())+" | "+item_level.lstrip("0")+"}}"
                     item_list.append(item_id)
             item_key = "<br>".join(item_list)
             reward_list = []
             for reward in data[line].get("16"):
                 reward_name, reward_level = reward.split("_")
-                reward_list.append("{{Item | "+REWARD_CONVERT[reward_name.lower()]+" | "+reward_level.lstrip("0")+"}}")
+                reward_list.append("{{Item | "+descriptions.get("categoryname_"+reward_name.lower())+" | "+reward_level.lstrip("0")+"}}")
             reward_key = "<br>".join(reward_list)
             output.writelines(f"|-\n|{task_nos.get(quest_key)}\n|{descriptions.get(desc_key)}\n|{unlock_key}\n|{item_key}\n|{reward_key}\n") 
         output.writelines("|}")

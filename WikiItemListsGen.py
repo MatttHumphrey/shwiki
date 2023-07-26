@@ -2,8 +2,8 @@ import json
 import sys
 import collections
 import os.path as path
-from convert import TOOL_CONVERT, HARD_ITEMS
-from modules import GDE_FILE, match_location
+from convert import HARD_ITEMS
+from modules import GDE_FILE, match_location, read_i2
 
 def get_arealist():
     OUTPUT_FILE = path.join(path.dirname(__file__),"area_output.txt")
@@ -23,6 +23,7 @@ def get_arealist():
 
 def get_game_items():
     item_totals = {}
+    descriptions = read_i2()
     OUTPUT_FILE = path.join(path.dirname(__file__),"game_items_output.txt")
     with open(GDE_FILE, "r", encoding="utf8") as file:
         data = json.load(file)
@@ -42,11 +43,12 @@ def get_game_items():
                 output.writelines(f"|{count}\n|-\n")
             else:
                 item_name, item_level = id.split("_")
-                output.writelines("|{{Item | "+TOOL_CONVERT[item_name.lower()]+" | "+item_level.lstrip("0")+"}}\n")
+                output.writelines("|{{Item | "+descriptions.get("categoryname_"+item_name.lower())+" | "+item_level.lstrip("0")+"}}\n")
                 output.writelines(f"|{count}\n|-\n")
     print("Action completed.")
 
 def get_area_items(area):
+    descriptions = read_i2()
     OUTPUT_FILE = path.join(path.dirname(__file__),"area_items_output.txt")
     with open(GDE_FILE, "r", encoding="utf8") as file:
         data = json.load(file)
@@ -69,11 +71,12 @@ def get_area_items(area):
                 output.writelines(f"|{sorted_totals.get(id)}\n|")
             else:
                 item_name, item_level = id.split("_")
-                output.writelines("-\n|{{Item | "+TOOL_CONVERT[item_name.lower()]+" | "+item_level.lstrip("0")+"}}\n")
+                output.writelines("-\n|{{Item | "+descriptions.get("categoryname_"+item_name.lower())+" | "+item_level.lstrip("0")+"}}\n")
                 output.writelines(f"|{sorted_totals.get(id)}\n|")
         output.writelines("|}")
    
 def get_hard_items(area):
+    descriptions = read_i2()
     OUTPUT_FILE = path.join(path.dirname(__file__),"hard_items_output.txt")
     with open(GDE_FILE, "r", encoding="utf8") as file:
         data = json.load(file)
@@ -94,7 +97,7 @@ def get_hard_items(area):
                 output.writelines("-\n|[[File:LemonMoney.png|30px]] [[Lemon Event|Money]]\n")
             else:
                 item_name, item_level = id.split("_")
-                output.writelines("-\n|{{Item | "+TOOL_CONVERT[item_name.lower()]+" | "+item_level.lstrip("0")+"}}\n")
+                output.writelines("-\n|{{Item | "+descriptions.get("categoryname_"+item_name.lower())+" | "+item_level.lstrip("0")+"}}\n")
             output.writelines(f"|{sorted_totals.get(id)}\n|")
         output.writelines("}")
     print("Action completed.")

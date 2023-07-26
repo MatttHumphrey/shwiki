@@ -1,8 +1,7 @@
 import json
 import sys
 import os.path as path
-from convert import CHAR_CONVERT
-from modules import I2_FILE, GDE_FILE, read_i2, task_dic, locate_task, match_location
+from modules import GDE_FILE, read_i2, task_dic, locate_task, match_location
 
 OUTPUT_FILE = path.join(path.dirname(__file__),"dialogue_output.txt")
 
@@ -21,8 +20,8 @@ def main(location):
                 current_area = locate_task(current_quest,dic)
                 if str(current_area).lower() != location:
                     continue 
-                if char_key.lower() in CHAR_CONVERT.keys():
-                    char_key = CHAR_CONVERT.get(char_key.lower())
+                if "cat" in char_key.lower():
+                    char_key = char_key.replace("Cat", "", 1)
                 if char_key and char_key not in chars:
                     chars.append(char_key)
                 if prev_quest != current_quest:
@@ -56,8 +55,8 @@ def full_dialogue():
                 quest_key = descriptions.get(data[line].get("88").lower())
                 char_key = data[line].get("94")
                 current_area = locate_task(current_quest,dic)
-                if char_key.lower() in CHAR_CONVERT.keys():
-                    char_key = CHAR_CONVERT.get(char_key.lower())
+                if "cat" in char_key.lower():
+                    char_key = char_key.replace("Cat", "", 1)
                 if char_key == "":
                     char_key = None
                 if char_key and char_key not in chars:
