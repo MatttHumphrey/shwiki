@@ -104,7 +104,7 @@ def match_plant(plant):
     else:    
         close_matches = difflib.get_close_matches(plant, list(valid_plants.keys())+list(valid_plants.values()))
         if close_matches:
-            choice = input(f"Did you mean '{close_matches[0]}'? (y/n)")
+            choice = input(f"Did you mean '{close_matches[0]}'? (y/n) ")
             if choice.lower() == "y":
                 plant = close_matches[0] if close_matches[0] in valid_plants.keys() else list(valid_plants.keys())[list(valid_plants.values()).index(close_matches[0])]
                 return plant
