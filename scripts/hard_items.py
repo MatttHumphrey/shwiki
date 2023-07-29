@@ -1,8 +1,8 @@
-from utils.match_location import match_location
-from utils.output_file import output_file
-from utils.hard_items import HARD_ITEMS
-from utils.read_gde import read_gde
-from utils.read_i2 import read_i2
+from scripts.utils.match_location import match_location
+from scripts.utils.output_file import output_file
+from scripts.utils.hard_items import HARD_ITEMS
+from scripts.utils.read_gde import read_gde
+from scripts.utils.read_i2 import read_i2
 import collections
 import sys
 

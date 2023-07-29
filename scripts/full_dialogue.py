@@ -1,8 +1,8 @@
-from utils.output_file import output_file
-from utils.locate_task import locate_task
-from utils.task_dic import task_dict
-from utils.read_gde import read_gde
-from utils.read_i2 import read_i2
+from scripts.utils.output_file import output_file
+from scripts.utils.locate_task import locate_task
+from scripts.utils.task_dic import task_dict
+from scripts.utils.read_gde import read_gde
+from scripts.utils.read_i2 import read_i2
 
 def full_dialogue():
     with open(output_file("full_dialogue_output.txt"), "w", encoding="utf8") as output:

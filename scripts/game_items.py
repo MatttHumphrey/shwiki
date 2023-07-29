@@ -1,6 +1,6 @@
-from utils.output_file import output_file
-from utils.read_gde import read_gde
-from utils.read_i2 import read_i2
+from scripts.utils.output_file import output_file
+from scripts.utils.read_gde import read_gde
+from scripts.utils.read_i2 import read_i2
 import collections
 
 def game_items():

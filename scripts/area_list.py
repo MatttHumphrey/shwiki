@@ -1,5 +1,5 @@
-from utils.output_file import output_file
-from utils.read_gde import read_gde
+from scripts.utils.output_file import output_file
+from scripts.utils.read_gde import read_gde
 
 def area_list():
     area_list = []
