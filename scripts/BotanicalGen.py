@@ -1,14 +1,14 @@
 import json
 import os.path as path
 import sys
-from modules import GDE_FILE, read_i2, convert_date_format, match_plant
+from modules import *
 
 def main(name,filename):
-    output_file = path.join(path.dirname(__file__),"plant_output.txt")
+    OUTPUT_FILE = get_output_file("plant_output.txt")
     descriptions = read_i2()
     with open(GDE_FILE, "r", encoding="utf8") as file:
         data = json.load(file)
-    with open(output_file, "w+", encoding="utf8") as output:
+    with open(OUTPUT_FILE, "w+", encoding="utf8") as output:
         for line in data:
             if data[line].get("1071") == "PeriodicalEvent" and data[line].get("663").lower() == "plant_"+name:
                 start_date = convert_date_format(str(data[line].get("297")))

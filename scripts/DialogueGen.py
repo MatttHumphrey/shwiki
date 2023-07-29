@@ -1,12 +1,10 @@
 import json
 import sys
 import os.path as path
-from modules import GDE_FILE, read_i2, task_dic, locate_task, match_location
-
-OUTPUT_FILE = path.join(path.dirname(__file__),"dialogue_output.txt")
+from modules import *
 
 def main(location):
-    OUTPUT_FILE = path.join(path.dirname(__file__),"area_dialogue_output.txt")
+    OUTPUT_FILE = get_output_file("area_dialogue_output.txt")
     with open(GDE_FILE, "r", encoding="utf8") as file, open(OUTPUT_FILE, "w", encoding="utf8") as output:
         descriptions = read_i2()
         data = json.load(file)
@@ -43,7 +41,7 @@ def main(location):
     print("Action completed.")          
 
 def full_dialogue():
-    OUTPUT_FILE = path.join(path.dirname(__file__),"dialogue_output.txt")
+    OUTPUT_FILE = get_output_file("dialogue_output.txt")
     with open(GDE_FILE, "r", encoding="utf8") as file, open(OUTPUT_FILE, "w", encoding="utf8") as output:
         descriptions = read_i2()
         data = json.load(file)

@@ -1,11 +1,9 @@
 import json
 import sys
-import os.path as path
-import difflib
-from modules import GDE_FILE, read_i2, tasknumbers, match_location
+from modules import *
 
 def main(loc, id):
-    OUTPUT_FILE = path.join(path.dirname(__file__),"task_output.txt")
+    OUTPUT_FILE = get_output_file("task_output.txt")
     descriptions = read_i2()
     task_nos = tasknumbers(loc, id)
     with open(GDE_FILE, "r", encoding="utf8") as file:

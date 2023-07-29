@@ -4,8 +4,8 @@ import sys
 import os.path as path
 from datetime import datetime
 
-I2_FILE = path.join(path.dirname(__file__),"i2subset_english.json")
-GDE_FILE = path.join(path.dirname(__file__),"gde_data.json")
+I2_FILE = path.join(path.join(path.dirname(path.dirname(__file__)),"data"),"i2subset_english.json")
+GDE_FILE = path.join(path.join(path.dirname(path.dirname(__file__)),"data"),"gde_data.json")
 
 def read_i2():
     descriptions = {}
@@ -114,3 +114,8 @@ def match_plant(plant):
         else:
             print("Invalid plant name.")
             sys.exit(1)
+
+def get_output_file(file):
+    parent_dir = path.dirname(path.dirname(__file__))
+    output_dir = path.join(path.join(parent_dir,"output"),file)
+    return output_dir
