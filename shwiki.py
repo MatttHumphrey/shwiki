@@ -24,8 +24,9 @@ functions = [
 ]
 
 def create_parser():
-    parser = argparse.ArgumentParser(description="Sunny House wiki utility program. Used primarily to generate wiki pages ready for upload.")
-    subparsers = parser.add_subparsers(title="Subcommands", dest="subcommand")
+    parser = argparse.ArgumentParser(description="Sunny House wiki utility program. Used primarily to generate wiki pages ready for upload.", usage="python %(prog)s subcommand arguments [options]", add_help=False)
+    parser.add_argument("-h", "--help", action="store_true", help="Shows this help message.")
+    subparsers = parser.add_subparsers(title="subcommands", dest="subcommand")
 
     for func, args, help in functions:
         parser_func = subparsers.add_parser(func.__name__, help=help)
