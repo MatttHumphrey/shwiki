@@ -1,18 +1,18 @@
-import json
-import os.path as path
+from utils.convert_date import convert_date
+from utils.match_plant import match_plant
+from utils.output_file import output_file
+from utils.read_gde import read_gde
+from utils.read_i2 import read_i2
 import sys
-from modules import GDE_FILE, read_i2, convert_date_format, match_plant
 
-def main(name,filename):
-    output_file = path.join(path.dirname(__file__),"plant_output.txt")
+def botanical_plant(name,filename):
     descriptions = read_i2()
-    with open(GDE_FILE, "r", encoding="utf8") as file:
-        data = json.load(file)
-    with open(output_file, "w+", encoding="utf8") as output:
+    data = read_gde()
+    with open(output_file("plant_output.txt"), "w+", encoding="utf8") as output:
         for line in data:
             if data[line].get("1071") == "PeriodicalEvent" and data[line].get("663").lower() == "plant_"+name:
-                start_date = convert_date_format(str(data[line].get("297")))
-                end_date = convert_date_format(str(data[line].get("299")))
+                start_date = convert_date(str(data[line].get("297")))
+                end_date = convert_date(str(data[line].get("299")))
                 desc = descriptions[data[line].get("679").lower()]
                 plant_number = data[line].get("76").split("_")[1]
                 plant_name = descriptions["categoryname_plant_"+name]
@@ -56,8 +56,8 @@ def main(name,filename):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python WikiBotanicalGen.py gde_name image_name")
+        print("Usage: python botanical_plant.py gde_name image_name")
     else:
         gde_name, image_name = sys.argv[1].lower(), sys.argv[2]
         gde_name = match_plant(gde_name)
-        main(gde_name, image_name)
+        botanical_plant(gde_name, image_name)
