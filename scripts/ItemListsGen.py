@@ -1,8 +1,7 @@
 import json
 import sys
 import collections
-import os.path as path
-from hard_items import HARD_ITEMS
+from ..data.hard_items import HARD_ITEMS
 from modules import *
 
 def get_arealist():

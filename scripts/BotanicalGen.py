@@ -1,5 +1,4 @@
 import json
-import os.path as path
 import sys
 from modules import *
 

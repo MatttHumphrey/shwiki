@@ -1,6 +1,5 @@
 import json
 import sys
-import os.path as path
 from modules import *
 
 def main(location):
