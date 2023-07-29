@@ -1,14 +1,15 @@
-import json
+from utils.output_file import output_file
+from utils.task_numbers import task_numbers
+from utils.read_i2 import read_i2
+from utils.read_gde import read_gde
+from utils.match_location import match_location
 import sys
-from modules import *
 
 def main(loc, id):
-    OUTPUT_FILE = get_output_file("task_output.txt")
     descriptions = read_i2()
-    task_nos = tasknumbers(loc, id)
-    with open(GDE_FILE, "r", encoding="utf8") as file:
-        data = json.load(file)
-    with open(OUTPUT_FILE, "w+", encoding="utf8") as output:
+    task_nos = task_numbers(loc, id)
+    data = read_gde()
+    with open(output_file("task_output.txt"), "w+", encoding="utf8") as output:
         namekey = descriptions.get("questtitle_"+loc, "N/A")
         output.writelines("\'''Note:\''' Due to the game's constant updates, the tasks on this page may not always be accurate. If you have any new information, feel free to go to the \""+namekey+"/Tasks\" page and edit accordingly.\n\n{| class=\"article-table\" style=\"font-size:15px;\"\n!style=\"width:100px\"|# \n!Name \n!style=\"width:100px\"|Opens \n!Items \n!Rewards \n")
         for line in data:

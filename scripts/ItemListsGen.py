@@ -1,31 +1,30 @@
-import json
-import sys
+from utils.hard_items import HARD_ITEMS
+from utils.output_file import output_file
+from utils.read_i2 import read_i2
+from utils.read_gde import read_gde
+from utils.match_location import match_location
 import collections
-from ..data.hard_items import HARD_ITEMS
-from modules import *
+import sys
+
 
 def get_arealist():
-    OUTPUT_FILE = get_output_file("area_output.txt")
     area_list = []
-    with open(GDE_FILE, "r", encoding="utf8") as file:
-        data = json.load(file)
-        for line in data:
-            if data[line].get("1071") == "Quest":
-                area_name = data[line].get("20")
-                if area_name not in area_list:
-                    area_list.append(area_name)
+    data = read_gde()
+    for line in data:
+        if data[line].get("1071") == "Quest":
+            area_name = data[line].get("20")
+            if area_name not in area_list:
+                area_list.append(area_name)
     remove_list = ['',"WinterFair2022_Shack","WinterFair2022_IceRink","WinterFair2022_Sledding","WinterFair2022_FerrisWheel","WinterFair2022_Train"]
     area_list = [area for area in area_list if area not in remove_list]
-    with open(OUTPUT_FILE, "w", encoding="utf8") as output:
+    with open(output_file("area_output.txt"), "w", encoding="utf8") as output:
         output.writelines("\n".join(area_list))
     print("Action completed.")
 
 def get_game_items():
     item_totals = {}
     descriptions = read_i2()
-    OUTPUT_FILE = get_output_file("game_items_output.txt")
-    with open(GDE_FILE, "r", encoding="utf8") as file:
-        data = json.load(file)
+    data = read_gde()
     for line in data:
         if data[line].get("1071") == "Quest":
             items = data[line].get("23")
@@ -34,7 +33,7 @@ def get_game_items():
                 if item.lower() != "lobbyeventpoint":
                     item_totals[item.lower()] = item_totals.get(item.lower(), 0) + count
     item_totals = collections.OrderedDict(sorted(item_totals.items()))
-    with open(OUTPUT_FILE, "w", encoding="utf8") as output:
+    with open(output("game_items_output.txt"), "w", encoding="utf8") as output:
         output.writelines("{| class=\"article-table sortable\"\n!class=\"unsortable\"|Item\n!Count\n|-\n")
         for id, count in item_totals.items():
             if id == "eventcoin":
@@ -48,21 +47,19 @@ def get_game_items():
 
 def get_area_items(area):
     descriptions = read_i2()
-    OUTPUT_FILE = get_output_file("area_items_output.txt")
-    with open(GDE_FILE, "r", encoding="utf8") as file:
-        data = json.load(file)
-        area_total = {}
-        for line in data:
-            if data[line].get("1071") == "Quest" and data[line].get("20").lower() == area:
-                items = data[line].get("23")
-                counts = data[line].get("26")
-                for i in range(0,len(items)):
-                    if items[i].lower() != "lobbyeventpoint":
-                        if items[i].lower() not in area_total.keys():
-                            area_total[items[i].lower()] = 0
-                        area_total[items[i].lower()] += counts[i]
-        sorted_totals = collections.OrderedDict(sorted(area_total.items()))
-    with open(OUTPUT_FILE, "w", encoding="utf8") as output:
+    data = read_gde()
+    area_total = {}
+    for line in data:
+        if data[line].get("1071") == "Quest" and data[line].get("20").lower() == area:
+            items = data[line].get("23")
+            counts = data[line].get("26")
+            for i in range(0,len(items)):
+                if items[i].lower() != "lobbyeventpoint":
+                    if items[i].lower() not in area_total.keys():
+                        area_total[items[i].lower()] = 0
+                    area_total[items[i].lower()] += counts[i]
+    sorted_totals = collections.OrderedDict(sorted(area_total.items()))
+    with open(output("area_items_output.txt"), "w", encoding="utf8") as output:
         output.writelines("{| class=\"article-table sortable\"\n!class=\"unsortable\"|Item\n!Count\n|")
         for id in sorted_totals.keys():
             if id == "eventcoin":
@@ -76,9 +73,7 @@ def get_area_items(area):
    
 def get_hard_items(area):
     descriptions = read_i2()
-    OUTPUT_FILE = get_output_file("hard_items_output.txt")
-    with open(GDE_FILE, "r", encoding="utf8") as file:
-        data = json.load(file)
+    data = read_gde()
     area_total = {item: 0 for item in HARD_ITEMS}
     for line in data:
         if data[line].get("1071") == "Quest" and data[line].get("20").lower() == area:
@@ -89,7 +84,7 @@ def get_hard_items(area):
                     area_total[item.lower()] = area_total.get(item.lower(), 0) + count
     sorted_totals = collections.OrderedDict(sorted(area_total.items()))
     sorted_totals = {key: value for key, value in sorted_totals.items() if value != 0}
-    with open(OUTPUT_FILE, "w", encoding="utf8") as output:
+    with open(output("hard_items_output.txt"), "w", encoding="utf8") as output:
         output.writelines("{| class=\"article-table sortable\"\n!class=\"unsortable\"|Item\n!Count\n|")
         for id in sorted_totals.keys():
             if id == "eventcoin":

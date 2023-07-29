@@ -1,17 +1,18 @@
-import json
+from utils.output_file import output_file
+from utils.read_i2 import read_i2
+from utils.read_gde import read_gde
+from utils.convert_date import convert_date
+from utils.match_plant import match_plant
 import sys
-from modules import *
 
 def main(name,filename):
-    OUTPUT_FILE = get_output_file("plant_output.txt")
     descriptions = read_i2()
-    with open(GDE_FILE, "r", encoding="utf8") as file:
-        data = json.load(file)
-    with open(OUTPUT_FILE, "w+", encoding="utf8") as output:
+    data = read_gde()
+    with open(output_file("plant_output.txt"), "w+", encoding="utf8") as output:
         for line in data:
             if data[line].get("1071") == "PeriodicalEvent" and data[line].get("663").lower() == "plant_"+name:
-                start_date = convert_date_format(str(data[line].get("297")))
-                end_date = convert_date_format(str(data[line].get("299")))
+                start_date = convert_date(str(data[line].get("297")))
+                end_date = convert_date(str(data[line].get("299")))
                 desc = descriptions[data[line].get("679").lower()]
                 plant_number = data[line].get("76").split("_")[1]
                 plant_name = descriptions["categoryname_plant_"+name]
