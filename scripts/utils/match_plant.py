@@ -1,4 +1,4 @@
-from utils.plant_list import plant_list
+from scripts.utils.plant_list import plant_list
 import difflib
 import sys
 
