@@ -1,11 +1,11 @@
-from utils.output_file import output_file
-from utils.read_i2 import read_i2
-from utils.read_gde import read_gde
 from utils.convert_date import convert_date
 from utils.match_plant import match_plant
+from utils.output_file import output_file
+from utils.read_gde import read_gde
+from utils.read_i2 import read_i2
 import sys
 
-def main(name,filename):
+def botanical_plant(name,filename):
     descriptions = read_i2()
     data = read_gde()
     with open(output_file("plant_output.txt"), "w+", encoding="utf8") as output:
@@ -56,8 +56,8 @@ def main(name,filename):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python WikiBotanicalGen.py gde_name image_name")
+        print("Usage: python botanical_plant.py gde_name image_name")
     else:
         gde_name, image_name = sys.argv[1].lower(), sys.argv[2]
         gde_name = match_plant(gde_name)
-        main(gde_name, image_name)
+        botanical_plant(gde_name, image_name)

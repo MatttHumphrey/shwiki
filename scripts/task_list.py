@@ -1,19 +1,19 @@
-from utils.output_file import output_file
-from utils.task_numbers import task_numbers
-from utils.read_i2 import read_i2
-from utils.read_gde import read_gde
 from utils.match_location import match_location
+from utils.task_numbers import task_numbers
+from utils.output_file import output_file
+from utils.read_gde import read_gde
+from utils.read_i2 import read_i2
 import sys
 
-def main(loc, id):
+def task_list(location, loc_id, upload):
     descriptions = read_i2()
-    task_nos = task_numbers(loc, id)
+    task_nos = task_numbers(location, loc_id)
     data = read_gde()
     with open(output_file("task_output.txt"), "w+", encoding="utf8") as output:
-        namekey = descriptions.get("questtitle_"+loc, "N/A")
+        namekey = descriptions.get("questtitle_"+location, "N/A")
         output.writelines("\'''Note:\''' Due to the game's constant updates, the tasks on this page may not always be accurate. If you have any new information, feel free to go to the \""+namekey+"/Tasks\" page and edit accordingly.\n\n{| class=\"article-table\" style=\"font-size:15px;\"\n!style=\"width:100px\"|# \n!Name \n!style=\"width:100px\"|Opens \n!Items \n!Rewards \n")
         for line in data:
-            if data[line].get("1071") != "Quest" or data[line].get("18").lower() != loc:
+            if data[line].get("1071") != "Quest" or data[line].get("18").lower() != location:
                 continue
             quest_key = data[line].get("2")
             desc_key = data[line].get("34").lower()
@@ -42,9 +42,9 @@ def main(loc, id):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python WikiTaskListGen.py location loc_id")
+        print("Usage: python task_list.py location loc_id")
         sys.exit(1)
     else:
         location, loc_id = sys.argv[1].lower(), sys.argv[2]
         location = match_location(location)
-        main(location, loc_id)
+        task_list(location, loc_id, upload=False)
