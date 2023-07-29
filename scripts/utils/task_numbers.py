@@ -1,4 +1,4 @@
-from read_gde import read_gde
+from utils.read_gde import read_gde
 
 def task_numbers(loc, id):
     data = read_gde()

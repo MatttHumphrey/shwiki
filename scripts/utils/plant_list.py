@@ -1,5 +1,5 @@
-from read_i2 import read_i2
-from read_gde import read_gde
+from utils.read_i2 import read_i2
+from utils.read_gde import read_gde
 
 def plant_list():
     descs = read_i2()

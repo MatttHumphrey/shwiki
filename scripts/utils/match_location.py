@@ -1,6 +1,6 @@
+from utils.area_list import area_list
 import difflib
 import sys
-from area_list import area_list
 
 def match_location(location):
     valid_areas = area_list()

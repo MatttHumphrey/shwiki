@@ -1,6 +1,6 @@
+from utils.plant_list import plant_list
 import difflib
 import sys
-from plant_list import plant_list
 
 def match_plant(plant):
     valid_plants = plant_list()
