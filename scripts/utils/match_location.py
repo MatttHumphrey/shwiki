@@ -1,9 +1,9 @@
-from scripts.utils.area_list import area_list
+from scripts.utils.area_dict import area_dict
 import difflib
 import sys
 
 def match_location(location):
-    valid_areas = area_list()
+    valid_areas = area_dict()
     if location.lower() in valid_areas.keys() or location.lower() in valid_areas.values():
         location = location.lower() if location.lower() in valid_areas.keys() else list(valid_areas.keys())[list(valid_areas.values()).index(location.lower())]
         return location

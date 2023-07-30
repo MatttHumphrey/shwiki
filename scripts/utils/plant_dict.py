@@ -1,7 +1,7 @@
 from scripts.utils.read_i2 import read_i2
 from scripts.utils.read_gde import read_gde
 
-def plant_list():
+def plant_dict():
     descs = read_i2()
     data = read_gde()
     plants = {}

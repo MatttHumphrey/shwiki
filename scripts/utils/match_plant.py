@@ -1,9 +1,9 @@
-from scripts.utils.plant_list import plant_list
+from scripts.utils.plant_dict import plant_dict
 import difflib
 import sys
 
 def match_plant(plant):
-    valid_plants = plant_list()
+    valid_plants = plant_dict()
     if plant.lower() in valid_plants.keys() or plant.lower() in valid_plants.values():
         plant = plant.lower() if plant.lower() in valid_plants.keys() else list(valid_plants.keys())[list(valid_plants.values()).index(plant.lower())]
         return plant
