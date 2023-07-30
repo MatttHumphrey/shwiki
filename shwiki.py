@@ -22,7 +22,7 @@ functions = [
     (game_items, [("upload", bool)], "Outputs a list of all items needed across the whole game."),
     (hard_items, [("upload", bool)], "Outputs a list of hard items needed for all areas in the game. Uses scripts/utils/hard_items.py to determine which items to include."),
     (task_list, [("location", str), ("loc_id", str), ("upload", bool)], "Outputs a list of tasks for a given location, with tasks named after the loc_id provided."),
-    (area_page, [("location", str), ("loc_id", str), ("upload", bool)], "Help")
+    (area_page, [("location", str), ("loc_id", str), ("upload", bool)], "Outputs the dialogue, task list and area page for a given location.")
 ]
 
 def create_parser():
