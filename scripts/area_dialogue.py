@@ -47,3 +47,4 @@ def area_dialogue(location, upload):
         namekey = descriptions.get("questtitle_"+location.lower()) if descriptions.get("questtitle_"+location.lower()) != None else "Front Gate"
         wiki_upload("User:WFrck/"+namekey+"/Dialogue", text)
     print("Action completed.")
+    return chars
