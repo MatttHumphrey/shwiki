@@ -1,0 +1,1 @@
+Place gde_data.json and i2subset_english.json in this folder.

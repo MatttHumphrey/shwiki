@@ -1,11 +1,10 @@
-from utils.match_location import match_location
-from utils.output_file import output_file
-from utils.read_gde import read_gde
-from utils.read_i2 import read_i2
+from .utils.pywikibot_login import wiki_upload
+from .utils.output_file import output_file
+from .utils.read_gde import read_gde
+from .utils.read_i2 import read_i2
 import collections
-import sys
 
-def area_items(location):
+def area_items(location, upload):
     descriptions = read_i2()
     data = read_gde()
     area_total = {}
@@ -19,23 +18,22 @@ def area_items(location):
                         area_total[items[i].lower()] = 0
                     area_total[items[i].lower()] += counts[i]
     sorted_totals = collections.OrderedDict(sorted(area_total.items()))
-    with open(output_file("area_items_output.txt"), "w", encoding="utf8") as output:
-        output.writelines("{| class=\"article-table sortable\"\n!class=\"unsortable\"|Item\n!Count\n|")
-        for id in sorted_totals.keys():
-            if id == "eventcoin":
-                output.writelines("-\n|[[File:LemonMoney.png|30px]] [[Lemon Event|Money]]\n")
-                output.writelines(f"|{sorted_totals.get(id)}\n|")
-            else:
-                item_name, item_level = id.split("_")
-                output.writelines("-\n|{{Item | "+descriptions.get("categoryname_"+item_name.lower())+" | "+item_level.lstrip("0")+"}}\n")
-                output.writelines(f"|{sorted_totals.get(id)}\n|")
-        output.writelines("|}")
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python area_items.py location")
-        sys.exit(1)
+    output = []
+    output.append("{| class=\"article-table sortable\"\n!class=\"unsortable\"|Item\n!Count\n|")
+    for id in sorted_totals.keys():
+        if id == "eventcoin":
+            output.append("-\n|[[File:LemonMoney.png|30px]] [[Lemon Event|Money]]\n")
+            output.append(f"|{sorted_totals.get(id)}\n|")
+        else:
+            item_name, item_level = id.split("_")
+            output.append("-\n|{{Item | "+descriptions.get("categoryname_"+item_name.lower())+" | "+item_level.lstrip("0")+"}}\n")
+            output.append(f"|{sorted_totals.get(id)}\n|")
+    output.append("}")
+    text = "".join(output)
+    if upload == False:
+        with open(output_file("area_items_output.txt"), "w", encoding="utf8") as output:
+            output.writelines(text)
     else:
-        location = sys.argv[1].lower()
-        location = match_location(location)
-        area_items(location)
+        namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) != None else descriptions.get("namekey_"+location)
+        wiki_upload("User:WFrck/Total_Area_Items/"+namekey, text)
+    print("Action completed.")
