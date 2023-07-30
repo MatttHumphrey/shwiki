@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 def convert_date(input_date):
     date_object = datetime.strptime(input_date, '%Y%m%d')
