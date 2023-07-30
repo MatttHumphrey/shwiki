@@ -1,4 +1,4 @@
-from scripts.utils.area_dict import area_dict
+from .area_dict import area_dict
 import difflib
 import sys
 
