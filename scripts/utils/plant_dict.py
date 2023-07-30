@@ -1,5 +1,5 @@
-from scripts.utils.read_i2 import read_i2
-from scripts.utils.read_gde import read_gde
+from .read_i2 import read_i2
+from .read_gde import read_gde
 
 def plant_dict():
     descs = read_i2()

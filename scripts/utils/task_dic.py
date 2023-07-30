@@ -1,4 +1,4 @@
-from scripts.utils.read_gde import read_gde
+from .read_gde import read_gde
 
 def task_dict():
     taskdict = {}
