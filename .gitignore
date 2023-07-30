@@ -16,3 +16,4 @@ pywikibot-*
 throttle.ctrl
 /user-config.py
 /user-password.py
+area_page_output.txt

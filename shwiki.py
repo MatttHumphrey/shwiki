@@ -6,6 +6,7 @@ from scripts.full_dialogue import full_dialogue
 from scripts.game_items import game_items
 from scripts.hard_items import hard_items
 from scripts.task_list import task_list
+from scripts.area_page import area_page
 
 from scripts.utils.match_location import match_location
 from scripts.utils.match_plant import match_plant
@@ -21,6 +22,7 @@ functions = [
     (game_items, [("upload", bool)], "Outputs a list of all items needed across the whole game."),
     (hard_items, [("upload", bool)], "Outputs a list of hard items needed for all areas in the game. Uses scripts/utils/hard_items.py to determine which items to include."),
     (task_list, [("location", str), ("loc_id", str), ("upload", bool)], "Outputs a list of tasks for a given location, with tasks named after the loc_id provided."),
+    (area_page, [("location", str), ("loc_id", str), ("upload", bool)], "Help")
 ]
 
 def create_parser():
