@@ -12,7 +12,7 @@ def hard_items(upload):
     area_list = area_dict().keys()
     output = []
     for location in area_list:
-        namekey = descriptions.get("questtitle_"+location.lower()) if descriptions.get("questtitle_"+location.lower()) != None else "Front Gate"
+        namekey = descriptions.get("questtitle_"+location.lower()) if descriptions.get("questtitle_"+location.lower()) != None else descriptions.get("namekey_"+location.lower())
         output.append(f"=={namekey}==\n")
         area_total = {item: 0 for item in HARD_ITEMS}
         for line in data:

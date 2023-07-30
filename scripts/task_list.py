@@ -9,7 +9,7 @@ def task_list(location, loc_id, upload):
     task_nos = task_numbers(location, loc_id)
     data = read_gde()
     output = []
-    namekey = descriptions.get("questtitle_"+location, "N/A")
+    namekey = descriptions.get("questtitle_"+location.lower()) if descriptions.get("questtitle_"+location.lower()) != None else descriptions.get("namekey_"+location.lower())
     output.append("\'''Note:\''' Due to the game's constant updates, the tasks on this page may not always be accurate. If you have any new information, feel free to go to the \""+namekey+"/Tasks\" page and edit accordingly.\n\n{| class=\"article-table\" style=\"font-size:15px;\"\n!style=\"width:100px\"|# \n!Name \n!style=\"width:100px\"|Opens \n!Items \n!Rewards \n")
     for line in data:
         if data[line].get("1071") != "Quest" or data[line].get("18").lower() != location:
