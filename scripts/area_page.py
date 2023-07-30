@@ -44,5 +44,5 @@ def area_page(location, loc_id, upload):
         with open(output_file("area_page_output.txt"), "w", encoding="utf8") as output:
             output.writelines(text)
     else:
-        wiki_upload("User:WFrck/"+namekey+"/Tasks", text)
+        wiki_upload("User:WFrck/"+namekey, text)
     print("Action completed.")
