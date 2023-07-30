@@ -1,7 +1,7 @@
 from .utils.pywikibot_login import wiki_upload
 from .utils.locate_task import locate_task
 from .utils.output_file import output_file
-from .utils.task_dict import task_dict
+from .utils.dialogue_task_dict import dialogue_task_dict
 from .utils.read_gde import read_gde
 from .utils.read_i2 import read_i2
 
@@ -10,7 +10,7 @@ def area_dialogue(location, upload):
     data = read_gde()
     output = []
     chars, counter, prev_area, prev_quest = [], 0, None, None
-    taskdict = task_dict()
+    taskdict = dialogue_task_dict()
     for line in data:
         if data[line].get("1071") == "Dialogue":
             current_quest = data[line].get("78")
