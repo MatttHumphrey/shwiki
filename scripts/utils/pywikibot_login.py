@@ -8,6 +8,6 @@ def login():
 
 def wiki_upload(pagename, text):
     site = login()
-    page = pywikibot.Page(site, 'User:WFrck/'+pagename)
+    page = pywikibot.Page(site, pagename)
     page.text = text
-    page.save("Created area pages (automated)")
+    page.save("Created/Updated pages (automated)")
