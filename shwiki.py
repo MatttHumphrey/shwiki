@@ -17,7 +17,7 @@ functions = [
     (area_dialogue, [("location", str), ("upload", bool)], "Outputs the dialogue spoken in a given location."),
     (area_items, [("location", str), ("upload", bool)], "Outputs a list of all items needed for a given location."),
     (area_list, [], "Outputs a list of filenames for all locations in game."),
-    (botanical_plant, [("name", str), ("filename", str), ("upload", bool)], "Outputs an Endangered Plant wiki page."),
+    (botanical_plant, [("plant_name", str), ("filename", str), ("upload", bool)], "Outputs an Endangered Plant wiki page."),
     (full_dialogue, [], "Outputs the dialogue spoken across the whole game."),
     (game_items, [("upload", bool)], "Outputs a list of all items needed across the whole game."),
     (hard_items, [("upload", bool)], "Outputs a list of hard items needed for all areas in the game. Uses scripts/utils/hard_items.py to determine which items to include."),
@@ -36,7 +36,7 @@ def create_parser():
         parser_help = {"upload": "Flag to upload page straight to wiki. Otherwise writes a text file to the output folder.",
                        "location": "Location to run the function on. Accepts both in game and file names of areas.",
                        "loc_id": "Key used to name tasks in task lists.",
-                       "name": "Endangered plant to run the function on. Accepts both in game and file names of plants.",
+                       "plant_name": "Endangered plant to run the function on. Accepts both in game and file names of plants.",
                        "filename": "Wiki filename of endangered plant."
                        }
         
@@ -65,7 +65,7 @@ def main():
                 value = getattr(args, arg)
                 if arg == "location":
                     value = match_location(value)
-                if arg == "name":
+                if arg == "plant_name":
                     value = match_plant(value)
                 func_args[arg] = value
 
