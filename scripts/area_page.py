@@ -1,11 +1,10 @@
-from .task_list import task_list
+from .utils.area_unlocks_dict import area_unlocks_dict
+from .utils.area_tasks_dict import area_tasks_dict
+from .utils.pywikibot_login import wiki_upload
+from .utils.output_file import output_file
 from .area_dialogue import area_dialogue
 from .utils.read_i2 import read_i2
-from .utils.area_tasks_dict import area_tasks_dict
-from .utils.area_unlocks_dict import area_unlocks_dict
-from .utils.output_file import output_file
-from .utils.pywikibot_login import wiki_upload
-
+from .task_list import task_list
 
 def area_page(location, loc_id, upload):
     task_list(location, loc_id, upload)

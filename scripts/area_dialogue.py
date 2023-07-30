@@ -1,7 +1,7 @@
+from .utils.dialogue_task_dict import dialogue_task_dict
 from .utils.pywikibot_login import wiki_upload
 from .utils.locate_task import locate_task
 from .utils.output_file import output_file
-from .utils.dialogue_task_dict import dialogue_task_dict
 from .utils.read_gde import read_gde
 from .utils.read_i2 import read_i2
 
@@ -44,7 +44,7 @@ def area_dialogue(location, upload):
         with open(output_file("area_dialogue_output.txt"), "w", encoding="utf8") as output:
             output.writelines(text)
     else:
-        namekey = descriptions.get("questtitle_"+location.lower()) if descriptions.get("questtitle_"+location.lower()) != None else descriptions.get("namekey_"+location.lower())
+        namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) != None else descriptions.get("namekey_"+location)
         wiki_upload("User:WFrck/"+namekey+"/Dialogue", text)
     print("Action completed.")
     return chars
