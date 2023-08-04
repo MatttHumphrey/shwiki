@@ -4,7 +4,7 @@ def area_unlocks_dict():
     dic = {}
     data = read_gde()
     for line in data:
-        if data[line].get("1071") == "Quest":
+        if data[line].get("1081") == "Quest":
             area = data[line].get("20").lower()
             unlocks = data[line].get("5")
             if dic.get(area) == None:

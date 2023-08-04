@@ -9,7 +9,7 @@ def game_items(upload):
     descriptions = read_i2()
     data = read_gde()
     for line in data:
-        if data[line].get("1071") == "Quest":
+        if data[line].get("1081") == "Quest":
             items = data[line].get("23")
             counts = data[line].get("26")
             for item, count in zip(items, counts):

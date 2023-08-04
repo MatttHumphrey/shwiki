@@ -16,7 +16,7 @@ def hard_items(upload):
         output.append(f"=={namekey}==\n")
         area_total = {item: 0 for item in HARD_ITEMS}
         for line in data:
-            if data[line].get("1071") == "Quest" and data[line].get("20").lower() == location:
+            if data[line].get("1081") == "Quest" and data[line].get("20").lower() == location:
                 items = data[line].get("23")
                 counts = data[line].get("26")
                 for item, count in zip(items, counts):

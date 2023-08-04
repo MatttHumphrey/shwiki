@@ -12,7 +12,7 @@ def area_dialogue(location, upload):
     chars, counter, prev_area, prev_quest = [], 0, None, None
     taskdict = dialogue_task_dict()
     for line in data:
-        if data[line].get("1071") == "Dialogue":
+        if data[line].get("1081") == "Dialogue":
             current_quest = data[line].get("78")
             quest_key = descriptions.get(data[line].get("88").lower())
             char_key = data[line].get("94")

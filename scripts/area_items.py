@@ -9,7 +9,7 @@ def area_items(location, upload):
     data = read_gde()
     area_total = {}
     for line in data:
-        if data[line].get("1071") == "Quest" and data[line].get("20").lower() == location:
+        if data[line].get("1081") == "Quest" and data[line].get("20").lower() == location:
             items = data[line].get("23")
             counts = data[line].get("26")
             for i in range(0,len(items)):

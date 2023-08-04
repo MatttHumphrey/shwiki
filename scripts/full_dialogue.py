@@ -11,7 +11,7 @@ def full_dialogue():
     taskdict = dialogue_task_dict()
     output = []
     for line in data:
-        if data[line].get("1071") == "Dialogue":
+        if data[line].get("1081") == "Dialogue":
             current_quest = data[line].get("78")
             quest_key = descriptions.get(data[line].get("88").lower())
             char_key = data[line].get("94")

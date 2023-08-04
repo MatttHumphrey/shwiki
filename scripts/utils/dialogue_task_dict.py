@@ -4,7 +4,7 @@ def dialogue_task_dict():
     task_dict = {}
     data = read_gde()
     for line in data:
-        if data[line].get("1071") == "Quest":
+        if data[line].get("1081") == "Quest":
             area = data[line].get("20", "")
             if area not in task_dict:
                 task_dict[area] = []

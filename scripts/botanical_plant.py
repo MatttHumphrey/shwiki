@@ -16,7 +16,7 @@ def botanical_plant(plant_name, filename, upload):
             plant_number = data[line].get("76").split("_")[1]
             desc_plant_name = descriptions["categoryname_plant_"+plant_name]
     for line in data:
-        if data[line].get("1071") == "PeriodicalEvent" and data[line].get("76") == "Botanical_"+str(int(plant_number)-1):
+        if data[line].get("1081") == "PeriodicalEvent" and data[line].get("76") == "Botanical_"+str(int(plant_number)-1):
             prev_plant = descriptions["categoryname_"+data[line].get("663").lower()]
     cost = {}
     item_name = {}
@@ -25,7 +25,7 @@ def botanical_plant(plant_name, filename, upload):
     xp["01"] = 0
     for line in data:
         item_key = str(data[line].get("158")).lower()
-        if data[line].get("1071") == "Item" and plant_name in item_key and "seedbox" not in item_key:
+        if data[line].get("1081") == "Item" and plant_name in item_key and "seedbox" not in item_key:
             level = item_key.split("_")[2]
             cost[level] = data[line].get("211")
             item_name[level] = descriptions["itemname_"+item_key.lower()]
