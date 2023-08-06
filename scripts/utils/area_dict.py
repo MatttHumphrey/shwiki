@@ -1,7 +1,6 @@
-from .read_i2 import read_i2
-from .read_gde import read_gde
-
 from .string_hash import string_hash
+from .read_gde import read_gde
+from .read_i2 import read_i2
 
 def area_dict():
     descs = read_i2()

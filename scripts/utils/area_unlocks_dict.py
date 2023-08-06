@@ -1,5 +1,5 @@
-from .read_gde import read_gde
 from .string_hash import string_hash
+from .read_gde import read_gde
 
 def area_unlocks_dict():
     dic = {}

@@ -1,5 +1,5 @@
-from .read_gde import read_gde
 from .string_hash import string_hash
+from .read_gde import read_gde
 
 def task_numbers(loc, id, ):
     data = read_gde()

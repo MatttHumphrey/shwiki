@@ -1,12 +1,12 @@
-from scripts.area_dialogue import area_dialogue
-from scripts.area_items import area_items
-from scripts.area_list import area_list
 from scripts.botanical_plant import botanical_plant
+from scripts.area_dialogue import area_dialogue
 from scripts.full_dialogue import full_dialogue
+from scripts.area_items import area_items
 from scripts.game_items import game_items
 from scripts.hard_items import hard_items
-from scripts.task_list import task_list
+from scripts.area_list import area_list
 from scripts.area_page import area_page
+from scripts.task_list import task_list
 
 from scripts.utils.match_location import match_location
 from scripts.utils.match_plant import match_plant

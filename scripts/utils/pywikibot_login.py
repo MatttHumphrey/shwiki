@@ -1,8 +1,7 @@
-from pywikibot import Site
 import pywikibot
 
 def login():
-    site = Site(code = "en", fam="sunnyhouse")
+    site = pywikibot.Site(code = "en", fam="sunnyhouse")
     site.login()
     return site
 
