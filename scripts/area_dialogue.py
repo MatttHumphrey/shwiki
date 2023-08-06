@@ -1,5 +1,6 @@
 from .utils.dialogue_task_dict import dialogue_task_dict
 from .utils.pywikibot_login import wiki_upload
+from .utils.string_hash import string_hash
 from .utils.locate_task import locate_task
 from .utils.output_file import output_file
 from .utils.read_gde import read_gde
@@ -8,14 +9,15 @@ from .utils.read_i2 import read_i2
 def area_dialogue(location, upload):
     descriptions = read_i2()
     data = read_gde()
+    stringhash = string_hash()
     output = []
     chars, counter, prev_area, prev_quest = [], 0, None, None
     taskdict = dialogue_task_dict()
     for line in data:
-        if data[line].get("1081") == "Dialogue":
-            current_quest = data[line].get("78")
-            quest_key = descriptions.get(data[line].get("88").lower())
-            char_key = data[line].get("94")
+        if data[line].get(stringhash[0]) == "Dialogue":
+            current_quest = data[line].get(stringhash[8])
+            quest_key = descriptions.get(data[line].get(stringhash[9]).lower())
+            char_key = data[line].get(stringhash[10])
             current_area = locate_task(current_quest,taskdict)
             if str(current_area).lower() != location:
                 continue 

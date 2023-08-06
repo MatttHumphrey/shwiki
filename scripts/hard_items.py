@@ -1,5 +1,6 @@
 from .utils.pywikibot_login import wiki_upload
 from .utils.output_file import output_file
+from .utils.string_hash import string_hash
 from .utils.hard_items import HARD_ITEMS
 from .utils.area_dict import area_dict
 from .utils.read_gde import read_gde
@@ -10,15 +11,16 @@ def hard_items(upload):
     descriptions = read_i2()
     data = read_gde()
     area_list = area_dict().keys()
+    stringhash = string_hash()
     output = []
     for location in area_list:
         namekey = descriptions.get("questtitle_"+location.lower()) if descriptions.get("questtitle_"+location.lower()) != None else descriptions.get("namekey_"+location.lower())
         output.append(f"=={namekey}==\n")
         area_total = {item: 0 for item in HARD_ITEMS}
         for line in data:
-            if data[line].get("1081") == "Quest" and data[line].get("20").lower() == location:
-                items = data[line].get("23")
-                counts = data[line].get("26")
+            if data[line].get(stringhash[0]) == "Quest" and data[line].get(stringhash[1]).lower() == location:
+                items = data[line].get(stringhash[11])
+                counts = data[line].get(stringhash[12])
                 for item, count in zip(items, counts):
                     if item.lower() in HARD_ITEMS:
                         area_total[item.lower()] = area_total.get(item.lower(), 0) + count

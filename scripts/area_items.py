@@ -1,5 +1,6 @@
 from .utils.pywikibot_login import wiki_upload
 from .utils.output_file import output_file
+from .utils.string_hash import string_hash
 from .utils.read_gde import read_gde
 from .utils.read_i2 import read_i2
 import collections
@@ -7,11 +8,12 @@ import collections
 def area_items(location, upload):
     descriptions = read_i2()
     data = read_gde()
+    stringhash = string_hash()
     area_total = {}
     for line in data:
-        if data[line].get("1081") == "Quest" and data[line].get("20").lower() == location:
-            items = data[line].get("23")
-            counts = data[line].get("26")
+        if data[line].get(stringhash[0]) == "Quest" and data[line].get(stringhash[1]).lower() == location:
+            items = data[line].get(stringhash[11])
+            counts = data[line].get(stringhash[12])
             for i in range(0,len(items)):
                 if items[i].lower() != "lobbyeventpoint":
                     if items[i].lower() not in area_total.keys():
