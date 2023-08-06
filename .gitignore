@@ -17,3 +17,5 @@ throttle.ctrl
 /user-config.py
 /user-password.py
 area_page_output.txt
+old_gde_data.json
+old_i2subset.json
