@@ -1,10 +1,12 @@
-from scripts.utils.pywikibot_login import wiki_upload
-from scripts.utils.task_numbers import task_numbers
-from scripts.utils.output_file import output_file
-from scripts.utils.read_gde import read_gde
-from scripts.utils.read_i2 import read_i2
+from .utils.pywikibot_login import wiki_upload
+from .utils.task_numbers import task_numbers
+from .utils.output_file import output_file
+from .utils.string_hash import string_hash
+from .utils.read_gde import read_gde
+from .utils.read_i2 import read_i2
 
 def task_list(location, loc_id, upload):
+    stringhash = string_hash()
     descriptions = read_i2()
     task_nos = task_numbers(location, loc_id)
     data = read_gde()
@@ -12,17 +14,17 @@ def task_list(location, loc_id, upload):
     namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) != None else descriptions.get("namekey_"+location)
     output.append("\'''Note:\''' Due to the game's constant updates, the tasks on this page may not always be accurate. If you have any new information, feel free to go to the \""+namekey+"/Tasks\" page and edit accordingly.\n\n{| class=\"article-table\" style=\"font-size:15px;\"\n!style=\"width:100px\"|# \n!Name \n!style=\"width:100px\"|Opens \n!Items \n!Rewards \n")
     for line in data:
-        if data[line].get("1071") != "Quest" or data[line].get("18").lower() != location:
+        if data[line].get(stringhash[0]) != "Quest" or data[line].get(stringhash[7]).lower() != location:
             continue
-        quest_key = data[line].get("2")
-        desc_key = data[line].get("34").lower()
+        quest_key = data[line].get(stringhash[2])
+        desc_key = data[line].get(stringhash[21]).lower()
         unlock_list = []
-        for item in data[line].get("5"):
+        for item in data[line].get(stringhash[3]):
             unlock_list.append(task_nos[item]) if item in task_nos.keys() else unlock_list.append("UN-"+str(item))
         unlock_key = "<br>".join(unlock_list)
-        item_dict = {item: count for item, count in zip(data[line].get("23"), data[line].get("26"))}
+        item_dict = {item: count for item, count in zip(data[line].get(stringhash[11]), data[line].get(stringhash[12]))}
         item_list = []
-        for item in data[line].get("23"):
+        for item in data[line].get(stringhash[11]):
             if item == "EventCoin":
                 item_list.append(f"{item_dict[item]} [[File:LemonMoney.png|30px]] [[Lemon Event|Money]]")
             else:
@@ -31,7 +33,7 @@ def task_list(location, loc_id, upload):
                 item_list.append(item_id)
         item_key = "<br>".join(item_list)
         reward_list = []
-        for reward in data[line].get("16"):
+        for reward in data[line].get(stringhash[22]):
             reward_name, reward_level = reward.split("_")
             reward_list.append("{{Item | "+descriptions.get("categoryname_"+reward_name.lower())+" | "+reward_level.lstrip("0")+"}}")
         reward_key = "<br>".join(reward_list)

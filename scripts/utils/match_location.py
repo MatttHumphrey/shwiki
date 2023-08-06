@@ -1,4 +1,5 @@
 from .area_dict import area_dict
+
 import difflib
 import sys
 

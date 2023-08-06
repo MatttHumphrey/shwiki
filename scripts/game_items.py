@@ -1,17 +1,20 @@
 from .utils.pywikibot_login import wiki_upload
 from .utils.output_file import output_file
+from .utils.string_hash import string_hash
 from .utils.read_gde import read_gde
 from .utils.read_i2 import read_i2
+
 import collections
 
 def game_items(upload):
     item_totals = {}
     descriptions = read_i2()
     data = read_gde()
+    stringhash = string_hash()
     for line in data:
-        if data[line].get("1071") == "Quest":
-            items = data[line].get("23")
-            counts = data[line].get("26")
+        if data[line].get(stringhash[0]) == "Quest":
+            items = data[line].get(stringhash[11])
+            counts = data[line].get(stringhash[12])
             for item, count in zip(items, counts):
                 if item.lower() != "lobbyeventpoint":
                     item_totals[item.lower()] = item_totals.get(item.lower(), 0) + count
