@@ -19,7 +19,7 @@ def area_page(location, loc_id, upload):
     unlocks = area_unlocks_dict()
     for elem in tasks[location]:
         for areas in unlocks.keys():
-            if elem in unlocks[areas] and areas != location:
+            if elem in unlocks[areas] and areas != location and areas:
                 prev_areas.append(areas)
     for i in range(0,len(prev_areas)):
         prev_areas[i] = descriptions.get("questtitle_"+prev_areas[i]) if descriptions.get("questtitle_"+prev_areas[i]) != None else descriptions.get("namekey_"+prev_areas[i])
