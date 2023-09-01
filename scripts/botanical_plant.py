@@ -11,28 +11,28 @@ def botanical_plant(plant_name, filename, upload):
     stringhash = string_hash()
     output = []
     for line in data:
-        if data[line].get(stringhash[0]) == "PeriodicalEvent" and data[line].get(stringhash[6]).lower() == "plant_"+plant_name:
-            start_date = convert_date(str(data[line].get(stringhash[13])))
-            end_date = convert_date(str(data[line].get(stringhash[14])))
-            desc = descriptions[data[line].get(stringhash[15]).lower()]
-            plant_number = data[line].get(stringhash[16]).split("_")[1]
+        if data[line].get(stringhash["_gdeSchema"]) == "PeriodicalEvent" and data[line].get(stringhash["ItemCategory"]).lower() == "plant_"+plant_name:
+            start_date = convert_date(str(data[line].get(stringhash["StartDate"])))
+            end_date = convert_date(str(data[line].get(stringhash["EndDate"])))
+            desc = descriptions[data[line].get(stringhash["BookDuringEventDescKey"]).lower()]
+            plant_number = data[line].get(stringhash["Key"]).split("_")[1]
             desc_plant_name = descriptions["categoryname_plant_"+plant_name]
     for line in data:
-        if data[line].get(stringhash[0]) == "PeriodicalEvent" and data[line].get(stringhash[16]) == "Botanical_"+str(int(plant_number)-1):
-            prev_plant = descriptions["categoryname_"+data[line].get(stringhash[6]).lower()]
+        if data[line].get(stringhash["_gdeSchema"]) == "PeriodicalEvent" and data[line].get(stringhash["Key"]) == "Botanical_"+str(int(plant_number)-1):
+            prev_plant = descriptions["categoryname_"+data[line].get(stringhash["ItemCategory"]).lower()]
     cost = {}
     item_name = {}
     bubble_gem = {}
     xp = {}
     xp["01"] = 0
     for line in data:
-        item_key = str(data[line].get(stringhash[17])).lower()
-        if data[line].get(stringhash[0]) == "Item" and plant_name in item_key and "seedbox" not in item_key:
+        item_key = str(data[line].get(stringhash["Name"])).lower()
+        if data[line].get(stringhash["_gdeSchema"]) == "Item" and plant_name in item_key and "seedbox" not in item_key:
             level = item_key.split("_")[2]
-            cost[level] = data[line].get(stringhash[18])
+            cost[level] = data[line].get(stringhash["SaleGold"])
             item_name[level] = descriptions["itemname_"+item_key.lower()]
-            bubble_gem[level] = data[line].get(stringhash[19])
-            xp[str(int(level)+1).zfill(2)] = 1 if data[line].get(stringhash[20]) == "Item_61" else 0
+            bubble_gem[level] = data[line].get(stringhash["UnlockJewel"])
+            xp[str(int(level)+1).zfill(2)] = 1 if data[line].get(stringhash["MergeSpawn1"]) == "Item_61" else 0
     output.append("{{InfoboxPlant\n|image = <gallery>\nPlant"+filename+"01.png | Level 1\nPlant"+filename+"12.png | Level 12\nPlant"+filename+"inBG.png | Planted\n</gallery>\n")
     output.append("|type=Drop Item<br>Event Item\n|description=\n"+desc+"\n")
     output.append("|source=[[File:"+filename+"SeedBox03.png|15x15px]][[Plant Seed Boxes#"+desc_plant_name+" Seed Box|Plant Seed Box]]<br>[[File:"+filename+"RareSeedBox01.png|15x15px]][[Plant Seed Boxes#"+desc_plant_name+" Seed Box|Rare Plant Seed Box]]")

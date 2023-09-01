@@ -12,9 +12,9 @@ def area_items(location, upload):
     stringhash = string_hash()
     area_total = {}
     for line in data:
-        if data[line].get(stringhash[0]) == "Quest" and data[line].get(stringhash[1]).lower() == location:
-            items = data[line].get(stringhash[11])
-            counts = data[line].get(stringhash[12])
+        if data[line].get(stringhash["_gdeSchema"]) == "Quest" and data[line].get(stringhash["AreaGroupKey"]).lower() == location:
+            items = data[line].get(stringhash["NeedItem"])
+            counts = data[line].get(stringhash["NeedItemCount"])
             for i in range(0,len(items)):
                 if items[i].lower() != "lobbyeventpoint":
                     if items[i].lower() not in area_total.keys():

@@ -13,10 +13,10 @@ def full_dialogue():
     stringhash = string_hash()
     output = []
     for line in data:
-        if data[line].get(stringhash[0]) == "Dialogue":
-            current_quest = data[line].get(stringhash[8])
-            quest_key = descriptions.get(data[line].get(stringhash[9]).lower())
-            char_key = data[line].get(stringhash[10])
+        if data[line].get(stringhash["_gdeSchema"]) == "Dialogue":
+            current_quest = data[line].get(stringhash["Group"])
+            quest_key = descriptions.get(data[line].get(stringhash["DescriptionKey"]).lower())
+            char_key = data[line].get(stringhash["Actor"])
             current_area = locate_task(current_quest,taskdict)
             if "cat" in char_key.lower():
                 char_key = char_key.replace("Cat", "", 1)

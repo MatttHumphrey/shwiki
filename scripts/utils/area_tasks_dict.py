@@ -6,9 +6,9 @@ def area_tasks_dict():
     data = read_gde()
     stringhash = string_hash()
     for line in data:
-        if data[line].get(stringhash[0]) == "Quest":
-            area = data[line].get(stringhash[1]).lower()
-            tasks = data[line].get(stringhash[2])
+        if data[line].get(stringhash["_gdeSchema"]) == "Quest":
+            area = data[line].get(stringhash["AreaGroupKey"]).lower()
+            tasks = data[line].get(stringhash["Id"])
             if dic.get(area) == None:
                 dic[area] = []
             dic[area].append(tasks)              

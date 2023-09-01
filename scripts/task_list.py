@@ -14,17 +14,17 @@ def task_list(location, loc_id, upload):
     namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) != None else descriptions.get("namekey_"+location)
     output.append("\'''Note:\''' Due to the game's constant updates, the tasks on this page may not always be accurate. If you have any new information, feel free to go to the \""+namekey+"/Tasks\" page and edit accordingly.\n\n{| class=\"article-table\" style=\"font-size:15px;\"\n!style=\"width:100px\"|# \n!Name \n!style=\"width:100px\"|Opens \n!Items \n!Rewards \n")
     for line in data:
-        if data[line].get(stringhash[0]) != "Quest" or data[line].get(stringhash[7]).lower() != location:
+        if data[line].get(stringhash["_gdeSchema"]) != "Quest" or data[line].get(stringhash["CompleteAreaKey"]).lower() != location:
             continue
-        quest_key = data[line].get(stringhash[2])
-        desc_key = data[line].get(stringhash[21]).lower()
+        quest_key = data[line].get(stringhash["Id"])
+        desc_key = data[line].get(stringhash["Desc"]).lower()
         unlock_list = []
-        for item in data[line].get(stringhash[3]):
+        for item in data[line].get(stringhash["CompleteOpenQuest"]):
             unlock_list.append(task_nos[item]) if item in task_nos.keys() else unlock_list.append("UN-"+str(item))
         unlock_key = "<br>".join(unlock_list)
-        item_dict = {item: count for item, count in zip(data[line].get(stringhash[11]), data[line].get(stringhash[12]))}
+        item_dict = {item: count for item, count in zip(data[line].get(stringhash["NeedItem"]), data[line].get(stringhash["NeedItemCount"]))}
         item_list = []
-        for item in data[line].get(stringhash[11]):
+        for item in data[line].get(stringhash["NeedItem"]):
             if item == "EventCoin":
                 item_list.append(f"{item_dict[item]} [[File:LemonMoney.png|30px]] [[Lemon Event|Money]]")
             else:
@@ -33,7 +33,7 @@ def task_list(location, loc_id, upload):
                 item_list.append(item_id)
         item_key = "<br>".join(item_list)
         reward_list = []
-        for reward in data[line].get(stringhash[22]):
+        for reward in data[line].get(stringhash["Reward"]):
             reward_name, reward_level = reward.split("_")
             reward_list.append("{{Item | "+descriptions.get("categoryname_"+reward_name.lower())+" | "+reward_level.lstrip("0")+"}}")
         reward_key = "<br>".join(reward_list)

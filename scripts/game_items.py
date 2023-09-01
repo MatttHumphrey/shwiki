@@ -12,9 +12,9 @@ def game_items(upload):
     data = read_gde()
     stringhash = string_hash()
     for line in data:
-        if data[line].get(stringhash[0]) == "Quest":
-            items = data[line].get(stringhash[11])
-            counts = data[line].get(stringhash[12])
+        if data[line].get(stringhash["_gdeSchema"]) == "Quest":
+            items = data[line].get(stringhash["NeedItem"])
+            counts = data[line].get(stringhash["NeedItemCount"])
             for item, count in zip(items, counts):
                 if item.lower() != "lobbyeventpoint":
                     item_totals[item.lower()] = item_totals.get(item.lower(), 0) + count
