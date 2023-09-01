@@ -38,7 +38,7 @@ def task_list(location, loc_id, upload):
             reward_list.append("{{Item | "+descriptions.get("categoryname_"+reward_name.lower())+" | "+reward_level.lstrip("0")+"}}")
         reward_key = "<br>".join(reward_list)
         output.append(f"|-\n|{task_nos.get(quest_key)}\n|{descriptions.get(desc_key)}\n|{unlock_key}\n|{item_key}\n|{reward_key}\n") 
-    output.append("|}")
+    output.append("|}\n[[Category:Tasks]]")
     text = "".join(output)
     if upload == False:
         with open(output_file("task_output.txt"), "w", encoding="utf8") as output:
