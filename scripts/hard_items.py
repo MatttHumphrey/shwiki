@@ -19,9 +19,9 @@ def hard_items(upload):
         output.append(f"=={namekey}==\n")
         area_total = {item: 0 for item in HARD_ITEMS}
         for line in data:
-            if data[line].get(stringhash[0]) == "Quest" and data[line].get(stringhash[1]).lower() == location:
-                items = data[line].get(stringhash[11])
-                counts = data[line].get(stringhash[12])
+            if data[line].get(stringhash["_gdeSchema"]) == "Quest" and data[line].get(stringhash["AreaGroupKey"]).lower() == location:
+                items = data[line].get(stringhash["NeedItem"])
+                counts = data[line].get(stringhash["NeedItemCount"])
                 for item, count in zip(items, counts):
                     if item.lower() in HARD_ITEMS:
                         area_total[item.lower()] = area_total.get(item.lower(), 0) + count

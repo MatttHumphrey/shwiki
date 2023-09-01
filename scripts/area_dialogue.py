@@ -14,10 +14,10 @@ def area_dialogue(location, upload):
     chars, counter, prev_area, prev_quest = [], 0, None, None
     taskdict = dialogue_task_dict()
     for line in data:
-        if data[line].get(stringhash[0]) == "Dialogue":
-            current_quest = data[line].get(stringhash[8])
-            quest_key = descriptions.get(data[line].get(stringhash[9]).lower())
-            char_key = data[line].get(stringhash[10])
+        if data[line].get(stringhash["_gdeSchema"]) == "Dialogue":
+            current_quest = data[line].get(stringhash["Group"])
+            quest_key = descriptions.get(data[line].get(stringhash["DescriptionKey"]).lower())
+            char_key = data[line].get(stringhash["Actor"])
             current_area = locate_task(current_quest,taskdict)
             if str(current_area).lower() != location:
                 continue 

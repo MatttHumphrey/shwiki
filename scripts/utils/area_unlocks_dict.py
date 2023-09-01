@@ -6,9 +6,9 @@ def area_unlocks_dict():
     data = read_gde()
     stringhash = string_hash()
     for line in data:
-        if data[line].get(stringhash[0]) == "Quest":
-            area = data[line].get(stringhash[1]).lower()
-            unlocks = data[line].get(stringhash[3])
+        if data[line].get(stringhash["_gdeSchema"]) == "Quest":
+            area = data[line].get(stringhash["AreaGroupKey"]).lower()
+            unlocks = data[line].get(stringhash["CompleteOpenQuest"])
             if dic.get(area) == None:
                 dic[area] = []
             for item in unlocks:
