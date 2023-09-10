@@ -46,4 +46,3 @@ def task_list(location, loc_id, upload):
     else:
         wiki_upload("User:WFrck/"+namekey+"/Tasks", text)
     print("Action completed.")
-

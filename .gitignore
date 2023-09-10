@@ -14,6 +14,7 @@ plant_output.txt
 task_output.txt
 area_output.txt
 quiz_output.txt
+SHTasks.xlsx
 
 apicache-py3
 __pycache__

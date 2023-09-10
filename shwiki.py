@@ -1,3 +1,4 @@
+from scripts.excel_task_list import excel_task_list
 from scripts.botanical_plant import botanical_plant
 from scripts.area_dialogue import area_dialogue
 from scripts.full_dialogue import full_dialogue
@@ -22,7 +23,8 @@ functions = [
     (game_items, [("upload", bool)], "Outputs a list of all items needed across the whole game."),
     (hard_items, [("upload", bool)], "Outputs a list of hard items needed for all areas in the game. Uses scripts/utils/hard_items.py to determine which items to include."),
     (task_list, [("location", str), ("loc_id", str), ("upload", bool)], "Outputs a list of tasks for a given location, with tasks named after the loc_id provided."),
-    (area_page, [("location", str), ("loc_id", str), ("upload", bool)], "Outputs the dialogue, task list and area page for a given location.")
+    (area_page, [("location", str), ("loc_id", str), ("upload", bool)], "Outputs the dialogue, task list and area page for a given location."),
+    (excel_task_list, [], "Outputs a spreadsheet containing all tasks across the game.")
 ]
 
 def create_parser():
