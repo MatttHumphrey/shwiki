@@ -1,7 +1,7 @@
 from .string_hash import string_hash
 from .read_gde import read_gde
 
-def task_numbers(loc, id, ):
+def task_numbers(loc, id):
     data = read_gde()
     stringhash = string_hash()
     id_dict = {}
