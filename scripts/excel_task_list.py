@@ -34,3 +34,4 @@ def excel_task_list():
         for area in task_dict.keys():
             df = pd.DataFrame(task_dict[area], columns=["Task", "Unlocks", "Item", "Count", "Reward", "Desc"])
             df.to_excel(writer, sheet_name=descriptions.get("questtitle_"+area), index=False)
+    print("Action completed.")
