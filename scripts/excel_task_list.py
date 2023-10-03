@@ -30,7 +30,7 @@ def excel_task_list():
         desc_key = data[line].get(stringhash["Desc"]).lower()
         descs = descriptions.get(desc_key)
         task_dict[area].append([quest_no, unlocks, items, item_counts, rewards, descs])
-    with pd.ExcelWriter(output_file('SHTasks.xlsx')) as writer:
+    with pd.ExcelWriter(output_file('tasks.xlsx')) as writer:
         for area in task_dict.keys():
             df = pd.DataFrame(task_dict[area], columns=["Task", "Unlocks", "Item", "Count", "Reward", "Desc"])
             df.to_excel(writer, sheet_name=descriptions.get("questtitle_"+area), index=False)

@@ -3,7 +3,6 @@ i2subset_english.json
 old_gde_data.json
 old_i2subset_english.json
 
-custom_hard_items_output.txt
 area_dialogue_output.txt
 full_dialogue_output.txt
 game_items_output.txt
@@ -14,7 +13,7 @@ plant_output.txt
 task_output.txt
 area_output.txt
 quiz_output.txt
-SHTasks.xlsx
+tasks.xlsx
 
 apicache-py3
 __pycache__
