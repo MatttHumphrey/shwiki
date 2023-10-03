@@ -7,10 +7,11 @@ from .utils.read_i2 import read_i2
 import pandas as pd
 
 def excel_task_list():
-    stringhash = string_hash()
-    descriptions = read_i2()
-    data = read_gde()
+    '''Outputs a spreadsheet listing all tasks in the game, split into pages for each area.'''
     area_list = list(area_dict().keys())
+    data = read_gde()
+    descriptions = read_i2()
+    stringhash = string_hash()
     task_dict = {}
     for area in area_list:
         task_dict[area] = []

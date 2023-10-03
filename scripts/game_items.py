@@ -7,9 +7,16 @@ from .utils.read_i2 import read_i2
 import collections
 
 def game_items(upload):
-    item_totals = {}
-    descriptions = read_i2()
+    '''
+    Generates a table listing all items needed across the whole game.
+
+    Keyword Arguments:
+    upload              - Optional trigger to upload the page automatically to the wiki
+    '''
     data = read_gde()
+    descriptions = read_i2()
+    item_totals = {}
+    output = []
     stringhash = string_hash()
     for line in data:
         if data[line].get(stringhash["_gdeSchema"]) == "Quest":
@@ -19,7 +26,6 @@ def game_items(upload):
                 if item.lower() != "lobbyeventpoint":
                     item_totals[item.lower()] = item_totals.get(item.lower(), 0) + count
     item_totals = collections.OrderedDict(sorted(item_totals.items()))
-    output = []
     output.append("{| class=\"article-table sortable\"\n!class=\"unsortable\"|Item\n!Count\n|-")
     for id, count in item_totals.items():
         if id == "eventcoin":

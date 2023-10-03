@@ -1,8 +1,9 @@
 from .read_gde import read_gde
 
 def string_hash():
-    lmao = read_gde()
-    my_dict = lmao["StringHash"]
+    '''Creates a dictionary containing all the text keyname we use and the associated keynames in the game files.'''
+    data = read_gde()
+    my_dict = data["StringHash"]
     key_list = list(my_dict.keys())
     val_list = list(my_dict.values())
     values = ["_gdeSchema", "AreaGroupKey", "Id", "CompleteOpenQuest", "CompleteDialogue", "OpenDialogue",

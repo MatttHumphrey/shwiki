@@ -9,9 +9,15 @@ from .utils.read_i2 import read_i2
 import collections
 
 def hard_items(upload):
+    '''
+    Generates a table listing the hard items needed for every area in the game.
+
+    Keyword Arguments:
+    upload              - Optional trigger to upload the page automatically to the wiki
+    '''
     descriptions = read_i2()
     data = read_gde()
-    area_list = area_dict().keys()
+    area_list = list(area_dict().keys())
     stringhash = string_hash()
     output = []
     for location in area_list:

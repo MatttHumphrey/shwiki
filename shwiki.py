@@ -28,6 +28,8 @@ functions = [
 ]
 
 def create_parser():
+    '''Creates the parser from the functions list above.'''
+    
     parser = argparse.ArgumentParser(description="Sunny House wiki utility program. Used primarily to generate wiki pages ready for upload.", usage="python %(prog)s subcommand arguments [options]", add_help=False)
     parser.add_argument("-h", "--help", action="store_true", help="Shows this help message.")
     subparsers = parser.add_subparsers(title="subcommands", dest="subcommand")
@@ -49,9 +51,11 @@ def create_parser():
                 parser_func.add_argument(f"{arg}", type=arg_type, help=parser_help[arg])
             else:
                 parser_func.add_argument(f"{arg}", type=arg_type, help=f"{func.__name__} help.")
+
     return parser
 
 def main():
+    '''shwiki.py'''
     parser = create_parser()
     args = parser.parse_args()
 

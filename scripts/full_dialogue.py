@@ -6,18 +6,24 @@ from .utils.read_gde import read_gde
 from .utils.read_i2 import read_i2
 
 def full_dialogue():
-    descriptions = read_i2()
+    '''
+    Generates all the dialogue spoken throughout the game
+    Useful for getting dialogue for events, since they do not have a specific area tag.
+    '''
+    chars = []
+    counter = 0
     data = read_gde()
-    chars, counter, prev_area, prev_quest = [], 0, None, None
-    taskdict = dialogue_task_dict()
-    stringhash = string_hash()
+    descriptions = read_i2()
     output = []
+    prev_area, prev_quest = None, None
+    stringhash = string_hash()
+    task_dict = dialogue_task_dict()
     for line in data:
         if data[line].get(stringhash["_gdeSchema"]) == "Dialogue":
             current_quest = data[line].get(stringhash["Group"])
             quest_key = descriptions.get(data[line].get(stringhash["DescriptionKey"]).lower())
             char_key = data[line].get(stringhash["Actor"])
-            current_area = locate_task(current_quest,taskdict)
+            current_area = locate_task(current_quest, task_dict)
             if "cat" in char_key.lower():
                 char_key = char_key.replace("Cat", "", 1)
             if char_key == "":

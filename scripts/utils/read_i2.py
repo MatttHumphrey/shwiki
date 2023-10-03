@@ -4,6 +4,7 @@ import json
 I2_FILE = path.join(path.dirname(path.dirname(path.dirname(__file__))),"data","i2subset_english.json")
 
 def read_i2():
+    '''Reads data from i2subset_english.json into the script.'''
     descriptions = {}
     with open(I2_FILE, "r", encoding="utf8") as file:
         data = json.load(file)

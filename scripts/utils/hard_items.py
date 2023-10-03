@@ -1,3 +1,4 @@
+'''A set of "hard items" used for the hard_items.py script.'''
 HARD_ITEMS = {'bench_06', 
               'bench_07', 
               'bench_08', 
