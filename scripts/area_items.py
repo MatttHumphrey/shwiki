@@ -7,15 +7,22 @@ from .utils.read_i2 import read_i2
 import collections
 
 def area_items(location, upload):
-    descriptions = read_i2()
-    data = read_gde()
-    stringhash = string_hash()
+    '''
+    Generates a table listing all items needed for a specified area.
+
+    Keyword Arguments:
+    location            - The name of the area we are generating the table for
+    upload              - Optional trigger to upload the page automatically to the wiki
+    '''
     area_total = {}
+    data = read_gde()
+    descriptions = read_i2()
+    stringhash = string_hash()
     for line in data:
         if data[line].get(stringhash["_gdeSchema"]) == "Quest" and data[line].get(stringhash["AreaGroupKey"]).lower() == location:
             items = data[line].get(stringhash["NeedItem"])
             counts = data[line].get(stringhash["NeedItemCount"])
-            for i in range(0,len(items)):
+            for i in range(0, len(items)):
                 if items[i].lower() != "lobbyeventpoint":
                     if items[i].lower() not in area_total.keys():
                         area_total[items[i].lower()] = 0

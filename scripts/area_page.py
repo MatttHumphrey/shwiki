@@ -8,26 +8,35 @@ from .area_dialogue import area_dialogue
 from .task_list import task_list
 
 def area_page(location, loc_id, upload):
+    '''
+    Generates the fully formatted area page for a given area, along with the task list and dialogue.
+    Note: The area numbering, profile picture unlocked, before/after pictures and the page emoji will need manually adding.
+
+    Keyword Arguments:
+    location            - The name of the area we are generating the task list for
+    loc_id              - A short 2-3 letter code to name the tasks after
+    upload              - Optional trigger to upload the page automatically to the wiki
+    '''
     task_list(location, loc_id, upload)
-    chars = area_dialogue(location, upload)
+    characters = area_dialogue(location, upload)
     descriptions = read_i2()
     output = []
+    prev_areas = []
+    task_dict = area_tasks_dict()
+    unlocks_dict = area_unlocks_dict()
     namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) != None else descriptions.get("namekey_"+location)
     output.append("{{DISPLAYTITLE:"+namekey+"}}\n{{Spoiler}}\n{{InfoboxArea\n|image=<gallery>\n</gallery>\n|unlocksafter=")
-    prev_areas = []
-    tasks = area_tasks_dict()
-    unlocks = area_unlocks_dict()
-    for elem in tasks[location]:
-        for areas in unlocks.keys():
-            if elem in unlocks[areas] and areas != location and areas:
+    for elem in task_dict[location]:
+        for areas in unlocks_dict.keys():
+            if elem in unlocks_dict[areas] and areas != location and areas:
                 prev_areas.append(areas)
     for i in range(0,len(prev_areas)):
         prev_areas[i] = descriptions.get("questtitle_"+prev_areas[i]) if descriptions.get("questtitle_"+prev_areas[i]) != None else descriptions.get("namekey_"+prev_areas[i])
     for elem in prev_areas:
         output.append("*[["+elem+"]]\n")
     output.append("|unlocks=-\n|cast=")
-    for character in chars:
-        output.append("*[["+character+"]]\n")
+    for char in characters:
+        output.append("*[["+char+"]]\n")
     output.append("|reward=}}\n\n")
     area_complete = descriptions.get("completedesckey_"+location)
     output.append("<small>''\""+area_complete+"\"''<br>\n-Sunny</small>\n\n")
@@ -35,7 +44,7 @@ def area_page(location, loc_id, upload):
     format_prev_areas = "]] and [[".join(prev_areas)
     output.append(format_prev_areas+"]].\n\n")
     output.append("==Plot==\n?\n\n==Cast==\n<gallery>\n")
-    for character in chars:
+    for character in characters:
         output.append("File:Cast- "+character+".png|"+character+"\n")
     output.append("</gallery>\n\n")
     output.append("==Story==\n<div class=\"mw-collapsible mw-collapsed\">\nClick '''Expand''' to view dialogue\n<div class=\"mw-collapsible-content\">\n{{/Dialogue}}\n</div>\n</div>\n\n")
