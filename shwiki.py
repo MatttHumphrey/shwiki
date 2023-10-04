@@ -1,3 +1,5 @@
+import argparse
+
 from scripts.botanical_plant import botanical_plant
 from scripts.excel_task_list import excel_task_list
 from scripts.area_dialogue import area_dialogue
@@ -11,8 +13,6 @@ from scripts.task_list import task_list
 
 from scripts.utils.match_location import match_location
 from scripts.utils.match_plant import match_plant
-
-import argparse
 
 functions = [
     (area_dialogue, [("location", str), ("upload", bool)], "Outputs the dialogue spoken in a given location."),
@@ -29,28 +29,28 @@ functions = [
 
 def create_parser():
     '''Creates the parser from the functions list above.'''
-    
-    parser = argparse.ArgumentParser(description="Sunny House wiki utility program. Used primarily to generate wiki pages ready for upload.", usage="python %(prog)s subcommand arguments [options]", add_help=False)
-    parser.add_argument("-h", "--help", action="store_true", help="Shows this help message.")
-    subparsers = parser.add_subparsers(title="subcommands", dest="subcommand")
+
+    parser = argparse.ArgumentParser(description = "Sunny House wiki utility program. Used primarily to generate wiki pages ready for upload.", usage = "python %(prog)s subcommand arguments [options]", add_help = False)
+    parser.add_argument("-h", "--help", action = "store_true", help = "Shows this help message.")
+    subparsers = parser.add_subparsers(title = "subcommands", dest = "subcommand")
 
     for func, args, help in functions:
-        parser_func = subparsers.add_parser(func.__name__, help=help)
-        parser_func.set_defaults(func=func)
+        parser_func = subparsers.add_parser(func.__name__, help = help)
+        parser_func.set_defaults(func = func)
         parser_help = {"upload": "Flag to upload page straight to wiki. Otherwise writes a text file to the output folder.",
                        "location": "Location to run the function on. Accepts both in game and file names of areas.",
                        "loc_id": "Key used to name tasks in task lists.",
                        "plant_name": "Endangered plant to run the function on. Accepts both in game and file names of plants.",
                        "filename": "Wiki filename of endangered plant."
                        }
-        
+
         for arg, arg_type in args:
             if arg == "upload":
-                parser_func.add_argument("-u", "--upload", action="store_true", help=parser_help[arg])
-            elif arg in parser_help.keys():
-                parser_func.add_argument(f"{arg}", type=arg_type, help=parser_help[arg])
+                parser_func.add_argument("-u", "--upload", action="store_true", help = parser_help[arg])
+            elif arg in parser_help:
+                parser_func.add_argument(f"{arg}", type = arg_type, help = parser_help[arg])
             else:
-                parser_func.add_argument(f"{arg}", type=arg_type, help=f"{func.__name__} help.")
+                parser_func.add_argument(f"{arg}", type = arg_type, help = f"{func.__name__} help.")
 
     return parser
 
