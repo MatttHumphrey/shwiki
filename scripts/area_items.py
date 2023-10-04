@@ -24,7 +24,7 @@ def area_items(location, upload = False):
             counts = data[line].get(stringhash["NeedItemCount"])
             for index, item in enumerate(items):
                 if item.lower() != "lobbyeventpoint":
-                    if item.lower() not in area_total.keys():
+                    if item.lower() not in area_total:
                         area_total[item.lower()] = 0
                     area_total[item.lower()] += counts[index]
     sorted_totals = collections.OrderedDict(sorted(area_total.items()))
