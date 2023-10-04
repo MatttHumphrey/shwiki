@@ -24,14 +24,13 @@ def area_page(location, loc_id, upload):
     prev_areas = []
     task_dict = area_tasks_dict()
     unlocks_dict = area_unlocks_dict()
-    namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) != None else descriptions.get("namekey_"+location)
+    namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) is not None else descriptions.get("namekey_"+location)
     output.append("{{DISPLAYTITLE:"+namekey+"}}\n{{Spoiler}}\n{{InfoboxArea\n|image=<gallery>\n</gallery>\n|unlocksafter=")
     for elem in task_dict[location]:
-        for areas in unlocks_dict.keys():
-            if elem in unlocks_dict[areas] and areas != location and areas:
-                prev_areas.append(areas)
-    for i in range(0,len(prev_areas)):
-        prev_areas[i] = descriptions.get("questtitle_"+prev_areas[i]) if descriptions.get("questtitle_"+prev_areas[i]) != None else descriptions.get("namekey_"+prev_areas[i])
+        for area, unlock_list in unlocks_dict.items():
+            if elem in unlock_list and area != location and area:
+                area = descriptions.get("questtitle_"+area) if descriptions.get("questtitle_"+area) is not None else descriptions.get("namekey_"+area)
+                prev_areas.append(area)
     for elem in prev_areas:
         output.append("*[["+elem+"]]\n")
     output.append("|unlocks=-\n|cast=")
@@ -50,7 +49,7 @@ def area_page(location, loc_id, upload):
     output.append("==Story==\n<div class=\"mw-collapsible mw-collapsed\">\nClick '''Expand''' to view dialogue\n<div class=\"mw-collapsible-content\">\n{{/Dialogue}}\n</div>\n</div>\n\n")
     output.append("==Tasks==\n{{/Tasks}}\n\n{{GameplayMenu}}\n[[Category:Areas]]\n__NOTOC__")
     text = "".join(output)
-    if upload == False:
+    if upload is False:
         with open(output_file("area_page_output.txt"), "w", encoding="utf8") as output:
             output.writelines(text)
     else:

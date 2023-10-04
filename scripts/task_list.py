@@ -21,7 +21,7 @@ def task_list(location, loc_id, upload):
     output = []
     stringhash = string_hash()
     id_dict = task_numbers(location, loc_id)
-    namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) != None else descriptions.get("namekey_"+location)
+    namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) is not None else descriptions.get("namekey_"+location)
     output.append("\'''Note:\''' Due to the game's constant updates, the tasks on this page may not always be accurate. If you have any new information, feel free to go to the \""+namekey+"/Tasks\" page and edit accordingly.\n\n{| class=\"article-table\" style=\"font-size:15px;\"\n!style=\"width:100px\"|# \n!Name \n!style=\"width:100px\"|Opens \n!Items \n!Rewards \n")
     for line in data:
         if data[line].get(stringhash["_gdeSchema"]) != "Quest" or data[line].get(stringhash["CompleteAreaKey"]).lower() != location:
@@ -30,7 +30,7 @@ def task_list(location, loc_id, upload):
         desc_key = data[line].get(stringhash["Desc"]).lower()
         unlock_list = []
         for item in data[line].get(stringhash["CompleteOpenQuest"]):
-            unlock_list.append(id_dict[item]) if item in id_dict.keys() else unlock_list.append("UN-"+str(item))
+            unlock_list = unlock_list.append(id_dict[item]) if item in id_dict else unlock_list.append("UN-"+str(item))
         unlock_key = "<br>".join(unlock_list)
         item_dict = {item: count for item, count in zip(data[line].get(stringhash["NeedItem"]), data[line].get(stringhash["NeedItemCount"]))}
         item_list = []
@@ -47,10 +47,10 @@ def task_list(location, loc_id, upload):
             reward_name, reward_level = reward.split("_")
             reward_list.append("{{Item | "+descriptions.get("categoryname_"+reward_name.lower())+" | "+reward_level.lstrip("0")+"}}")
         reward_key = "<br>".join(reward_list)
-        output.append(f"|-\n|{id_dict.get(quest_key)}\n|{descriptions.get(desc_key)}\n|{unlock_key}\n|{item_key}\n|{reward_key}\n") 
+        output.append(f"|-\n|{id_dict.get(quest_key)}\n|{descriptions.get(desc_key)}\n|{unlock_key}\n|{item_key}\n|{reward_key}\n")
     output.append("|}\n[[Category:Tasks]]")
     text = "".join(output)
-    if upload == False:
+    if upload is False:
         with open(output_file("task_output.txt"), "w", encoding="utf8") as output:
             output.writelines(text)
     else:

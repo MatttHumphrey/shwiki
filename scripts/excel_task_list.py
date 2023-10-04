@@ -1,10 +1,10 @@
+import pandas as pd
+
 from .utils.output_file import output_file
 from .utils.string_hash import string_hash
 from .utils.area_dict import area_dict
 from .utils.read_gde import read_gde
 from .utils.read_i2 import read_i2
-
-import pandas as pd
 
 def excel_task_list():
     '''Outputs a spreadsheet listing all tasks in the game, split into pages for each area.'''
@@ -32,7 +32,7 @@ def excel_task_list():
         descs = descriptions.get(desc_key)
         task_dict[area].append([quest_no, unlocks, items, item_counts, rewards, descs])
     with pd.ExcelWriter(output_file('tasks.xlsx')) as writer:
-        for area in task_dict.keys():
-            df = pd.DataFrame(task_dict[area], columns=["Task", "Unlocks", "Item", "Count", "Reward", "Desc"])
-            df.to_excel(writer, sheet_name=descriptions.get("questtitle_"+area), index=False)
+        for area, tasks in task_dict.items():
+            task_data = pd.DataFrame(tasks, columns = ["Task", "Unlocks", "Item", "Count", "Reward", "Desc"])
+            task_data.to_excel(writer, sheet_name = descriptions.get("questtitle_"+area), index = False)
     print("Action completed.")
