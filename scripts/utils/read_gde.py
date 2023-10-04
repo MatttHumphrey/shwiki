@@ -1,4 +1,4 @@
-import os.path as path
+from os import path
 import json
 
 GDE_DATA = path.join(path.dirname(path.dirname(path.dirname(__file__))),"data","gde_data.json")

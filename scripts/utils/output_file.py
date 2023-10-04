@@ -1,4 +1,4 @@
-import os.path as path
+from os import path
 
 def output_file(file):
     '''Creates the path to a file in the output folder from a script in the scripts folder.'''

@@ -10,8 +10,8 @@ def area_unlocks_dict():
         if data[line].get(stringhash["_gdeSchema"]) == "Quest":
             area = data[line].get(stringhash["AreaGroupKey"]).lower()
             unlocks = data[line].get(stringhash["CompleteOpenQuest"])
-            if unlocks_dict.get(area) == None:
+            if unlocks_dict.get(area) is None:
                 unlocks_dict[area] = []
             for item in unlocks:
-                unlocks_dict[area].append(item)              
+                unlocks_dict[area].append(item)
     return unlocks_dict

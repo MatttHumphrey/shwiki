@@ -13,10 +13,10 @@ def task_numbers(location, loc_id):
     '''
     data = read_gde()
     id_dict = {}
-    n = 1
+    count = 1
     stringhash = string_hash()
     for line in data:
         if data[line].get(stringhash["_gdeSchema"]) == "Quest" and data[line].get(stringhash["CompleteAreaKey"]).lower() == location:
-            id_dict[data[line].get(stringhash["Id"])] = f"{loc_id.upper()}-{n}"
-            n += 1
+            id_dict[data[line].get(stringhash["Id"])] = f"{loc_id.upper()}-{count}"
+            count += 1
     return id_dict
