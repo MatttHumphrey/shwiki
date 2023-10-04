@@ -10,7 +10,7 @@ def full_dialogue():
     Generates all the dialogue spoken throughout the game
     Useful for getting dialogue for events, since they do not have a specific area tag.
     '''
-    chars = []
+    characters = []
     counter = 0
     data = read_gde()
     descriptions = read_i2()
@@ -28,10 +28,10 @@ def full_dialogue():
                 char_key = char_key.replace("Cat", "", 1)
             if char_key == "":
                 char_key = None
-            if char_key and char_key not in chars:
-                chars.append(char_key)
+            if char_key and char_key not in characters:
+                characters.append(char_key)
             if prev_quest != current_quest:
-                if current_area == prev_area and current_area != None:
+                if current_area == prev_area and current_area is not None:
                     counter += 1
                 else:
                     counter = 1
@@ -42,7 +42,7 @@ def full_dialogue():
             else:
                 prev_quest = current_quest
                 output.append("\n\n")
-                output.append("<small>'''"+str(char_key)+"'''  "+str(quest_key)+"</small>")    
+                output.append("<small>'''"+str(char_key)+"'''  "+str(quest_key)+"</small>")
     output.append("</blockquote>\n[[Category:Dialogue]]")
     text = "".join(output)
     with open(output_file("full_dialogue_output.txt"), "w", encoding="utf8") as output:

@@ -3,12 +3,13 @@ from .read_gde import read_gde
 from .read_i2 import read_i2
 
 def area_dict():
-    '''Generates a dictionary with all the areas in the game files and their corresponding in game name.'''
+    '''Generates a dictionary with all the areas in the game files and their in game names.'''
     areas = {}
     descriptions = read_i2()
     data = read_gde()
     stringhash = string_hash()
-    remove_list = ['',"winterfair2022_shack","winterfair2022_icerink","winterfair2022_sledding","winterfair2022_ferriswheel","winterfair2022_train"]
+    remove_list = ['', "winterfair2022_shack", "winterfair2022_icerink", "winterfair2022_sledding",
+                   "winterfair2022_ferriswheel", "winterfair2022_train"]
     for line in data:
         if data[line].get(stringhash["_gdeSchema"]) == "Quest":
             area_key = data[line].get(stringhash["AreaGroupKey"], "").lower()

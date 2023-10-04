@@ -10,7 +10,7 @@ def area_tasks_dict():
         if data[line].get(stringhash["_gdeSchema"]) == "Quest":
             area = data[line].get(stringhash["AreaGroupKey"]).lower()
             tasks = data[line].get(stringhash["Id"])
-            if task_dict.get(area) == None:
+            if task_dict.get(area) is None:
                 task_dict[area] = []
-            task_dict[area].append(tasks)              
+            task_dict[area].append(tasks)
     return task_dict

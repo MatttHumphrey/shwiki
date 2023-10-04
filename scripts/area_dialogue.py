@@ -18,8 +18,8 @@ def area_dialogue(location, upload):
     Return Value:
     A list of all characters who have spoken in the area, used only in area_page.py and unnecessary otherwise.
     '''
-    characters = 0
-    counter = []
+    characters = []
+    counter = 0
     data = read_gde()
     descriptions = read_i2()
     output = []
@@ -33,13 +33,13 @@ def area_dialogue(location, upload):
             char_key = data[line].get(stringhash["Actor"])
             current_area = locate_task(current_quest, task_dict)
             if str(current_area).lower() != location:
-                continue 
+                continue
             if "cat" in char_key.lower():
                 char_key = char_key.replace("Cat", "", 1)
             if char_key and char_key not in characters:
                 characters.append(char_key)
             if prev_quest != current_quest:
-                if current_area == prev_area and current_area != None:
+                if current_area == prev_area and current_area is not None:
                     counter += 1
                 else:
                     counter = 1
@@ -52,14 +52,14 @@ def area_dialogue(location, upload):
             else:
                 prev_quest = current_quest
                 output.append("\n\n")
-                output.append(f"<small>'''{str(char_key)}'''  {str(quest_key)}</small>")    
-    output.append("</blockquote>\n[[Category:Dialogue]]") 
+                output.append(f"<small>'''{str(char_key)}'''  {str(quest_key)}</small>")
+    output.append("</blockquote>\n[[Category:Dialogue]]")
     text = "".join(output)
-    if upload == False:
+    if upload is False:
         with open(output_file("area_dialogue_output.txt"), "w", encoding="utf8") as output:
             output.writelines(text)
     else:
-        namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) != None else descriptions.get("namekey_"+location)
+        namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) is not None else descriptions.get("namekey_"+location)
         wiki_upload("User:WFrck/"+namekey+"/Dialogue", text)
     print("Action completed.")
     return characters

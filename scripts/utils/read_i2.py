@@ -1,4 +1,4 @@
-import os.path as path
+from os import path
 import json
 
 I2_FILE = path.join(path.dirname(path.dirname(path.dirname(__file__))),"data","i2subset_english.json")

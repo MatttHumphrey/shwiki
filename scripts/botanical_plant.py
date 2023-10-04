@@ -32,8 +32,7 @@ def botanical_plant(plant_name, plant_filename, upload):
     cost = {}
     item_name = {}
     bubble_gem = {}
-    xp = {}
-    xp["01"] = 0
+    xp_indicator = {"01": 0}
     for line in data:
         item_key = str(data[line].get(stringhash["Name"])).lower()
         if data[line].get(stringhash["_gdeSchema"]) == "Item" and plant_name in item_key and "seedbox" not in item_key:
@@ -41,7 +40,7 @@ def botanical_plant(plant_name, plant_filename, upload):
             cost[level] = data[line].get(stringhash["SaleGold"])
             item_name[level] = descriptions["itemname_"+item_key.lower()]
             bubble_gem[level] = data[line].get(stringhash["UnlockJewel"])
-            xp[str(int(level)+1).zfill(2)] = 1 if data[line].get(stringhash["MergeSpawn1"]) == "Item_61" else 0
+            xp_indicator[str(int(level)+1).zfill(2)] = 1 if data[line].get(stringhash["MergeSpawn1"]) == "Item_61" else 0
     output.append("{{InfoboxPlant\n|image = <gallery>\nPlant"+plant_filename+"01.png | Level 1\nPlant"+plant_filename+"12.png | Level 12\nPlant"+plant_filename+"inBG.png | Planted\n</gallery>\n")
     output.append("|type=Drop Item<br>Event Item\n|description=\n"+desc+"\n")
     output.append("|source=[[File:"+plant_filename+"SeedBox03.png|15x15px]][[Plant Seed Boxes#"+desc_plant_name+" Seed Box|Plant Seed Box]]<br>[[File:"+plant_filename+"RareSeedBox01.png|15x15px]][[Plant Seed Boxes#"+desc_plant_name+" Seed Box|Rare Plant Seed Box]]")
@@ -52,8 +51,8 @@ def botanical_plant(plant_name, plant_filename, upload):
     output.append("==Story==\n<div class=\"mw-collapsible mw-collapsed\">\nClick '''Expand''' to view dialogue\n<div class=\"mw-collapsible-content\">\n{{/Dialogue}}\n</div>\n</div>\n\n")
     output.append("==Statistics==\n=== Merge Stages ===\n{| class=\"article-table\"\n|+\n"+desc_plant_name+"\n!Lvl\n!Image\n!Item\n!Sell Price\n!Drops*\n")
     for i in sorted(list(cost.keys())):
-        output.append(f"|-\n|"+i.lstrip("0")+"\n|style=\"text-align:center;\" |[[File:Plant"+plant_filename+str(i)+".png|65x65px]]\n|"+item_name[i]+"\n|[[File:Coin.png|16px|link=Coins]] "+str(cost[i])+"\n")
-        output.append("| -\n" if xp[i] == 0 else f"|1 [[Experience Points (XP)|XP Star]]\n")
+        output.append("|-\n|"+i.lstrip("0")+"\n|style=\"text-align:center;\" |[[File:Plant"+plant_filename+str(i)+".png|65x65px]]\n|"+item_name[i]+"\n|[[File:Coin.png|16px|link=Coins]] "+str(cost[i])+"\n")
+        output.append("| -\n" if xp_indicator[i] == 0 else "|1 [[Experience Points (XP)|XP Star]]\n")
     output.append("|}\n<nowiki>*</nowiki>[[Experience Points (XP)|XP]] drops upon merge and does not repeat, item drops generate repeatedly unless parent item is destroyed or [[Coins|sold]].\n\n")
     output.append("===Double Bubbles===\n{| class=\"article-table\"\n|+\n"+desc_plant_name+": Double Bubbles**\n!Lvl\n!Image\n! Item\n![[Double Bubble]] Cost\n")
     for i in sorted(list(cost.keys())):
@@ -62,7 +61,7 @@ def botanical_plant(plant_name, plant_filename, upload):
     output.append("|}\n<nowiki>**</nowiki>[[Double Bubble|Double Bubbles]] only appear for Levels 2 or higher, as they are created by merging. If not popped, they vanish after 60 seconds.\n\n")
     output.append("{{PlantEventMenu}}\n[[Category:Endangered Plants]]\n[[Category:Drops]]\n[[Category:Common Drops]]\n[[Category:Event Items]]\n__NOTOC__")
     text = "".join(output)
-    if upload == False:
+    if upload is False:
         with open(output_file("plant_output.txt"), "w", encoding="utf8") as output:
             output.writelines(text)
     else:
