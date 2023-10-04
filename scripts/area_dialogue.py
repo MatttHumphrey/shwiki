@@ -6,7 +6,7 @@ from .utils.output_file import output_file
 from .utils.read_gde import read_gde
 from .utils.read_i2 import read_i2
 
-def area_dialogue(location, upload):
+def area_dialogue(location, upload = False):
     '''
     Generates all the dialogue spoken in a given area.
     Note: Character name may show as "None" where one is not defined in the game's files.

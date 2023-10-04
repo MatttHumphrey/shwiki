@@ -7,7 +7,7 @@ from .utils.read_i2 import read_i2
 from .area_dialogue import area_dialogue
 from .task_list import task_list
 
-def area_page(location, loc_id, upload):
+def area_page(location, loc_id, upload = False):
     '''
     Generates the fully formatted area page for a given area, along with the task list and dialogue.
     Note: The area numbering, profile picture unlocked, before/after pictures and the page emoji will need manually adding.

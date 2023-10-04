@@ -6,7 +6,7 @@ from .utils.string_hash import string_hash
 from .utils.read_gde import read_gde
 from .utils.read_i2 import read_i2
 
-def game_items(upload):
+def game_items(upload = False):
     '''
     Generates a table listing all items needed across the whole game.
 

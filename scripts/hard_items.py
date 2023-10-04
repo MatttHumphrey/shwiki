@@ -8,7 +8,7 @@ from .utils.area_dict import area_dict
 from .utils.read_gde import read_gde
 from .utils.read_i2 import read_i2
 
-def hard_items(upload):
+def hard_items(upload = False):
     '''
     Generates a table listing the hard items needed for every area in the game.
 

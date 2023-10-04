@@ -5,7 +5,7 @@ from .utils.string_hash import string_hash
 from .utils.read_gde import read_gde
 from .utils.read_i2 import read_i2
 
-def task_list(location, loc_id, upload):
+def task_list(location, loc_id, upload = False):
     '''
     Generates the full list of tasks for a given area.
     Note: Tasks are listed in the order they appear in the game files. 

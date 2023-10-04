@@ -5,7 +5,7 @@ from .utils.string_hash import string_hash
 from .utils.read_gde import read_gde
 from .utils.read_i2 import read_i2
 
-def botanical_plant(plant_name, plant_filename, upload):
+def botanical_plant(plant_name, plant_filename, upload = False):
     '''
     Generates a formatted botanical plant page.
     Note: Minor edits may need to be made to the description in the Infobox.
