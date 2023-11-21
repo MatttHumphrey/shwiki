@@ -3,8 +3,8 @@ import pandas as pd
 from .utils.match_location import area_dict
 from .utils.output_file import output_file
 from .utils.string_hash import string_hash
-from .utils.read_gde import read_gde
-from .utils.read_i2 import read_i2
+from .utils.read_data import read_gde
+from .utils.read_data import read_i2
 
 def excel_task_list():
     '''Outputs a spreadsheet listing all tasks in the game, split into pages for each area.'''

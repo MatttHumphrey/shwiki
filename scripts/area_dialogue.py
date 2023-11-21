@@ -3,8 +3,8 @@ from .utils.pywikibot_login import wiki_upload
 from .utils.locate_task import locate_task
 from .utils.string_hash import string_hash
 from .utils.output_file import output_file
-from .utils.read_gde import read_gde
-from .utils.read_i2 import read_i2
+from .utils.read_data import read_gde
+from .utils.read_data import read_i2
 
 def area_dialogue(location, upload = False):
     '''

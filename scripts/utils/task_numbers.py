@@ -1,5 +1,5 @@
 from .string_hash import string_hash
-from .read_gde import read_gde
+from .read_data import read_gde
 
 def task_numbers(location, loc_id):
     '''Assigns a task number to every task in an area.

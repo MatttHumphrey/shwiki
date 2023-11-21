@@ -1,5 +1,5 @@
 from .string_hash import string_hash
-from .read_gde import read_gde
+from .read_data import read_gde
 
 def area_tasks_dict():
     '''Returns a dictionary containing the names of every area and a list of all the tasks completed throughout that area.'''

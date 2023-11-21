@@ -2,8 +2,8 @@ from .utils.pywikibot_login import wiki_upload
 from .utils.convert_date import convert_date
 from .utils.output_file import output_file
 from .utils.string_hash import string_hash
-from .utils.read_gde import read_gde
-from .utils.read_i2 import read_i2
+from .utils.read_data import read_gde
+from .utils.read_data import read_i2
 
 def botanical_plant(plant_name, plant_filename, upload = False):
     '''
