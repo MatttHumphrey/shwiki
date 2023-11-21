@@ -1,9 +1,8 @@
 from .utils.pywikibot_login import wiki_upload
+from .utils.read_data import read_gde, read_i2
 from .utils.task_numbers import task_numbers
 from .utils.output_file import output_file
 from .utils.string_hash import string_hash
-from .utils.read_gde import read_gde
-from .utils.read_i2 import read_i2
 
 def task_list(location, loc_id, upload = False):
     '''
@@ -30,7 +29,7 @@ def task_list(location, loc_id, upload = False):
         desc_key = data[line].get(stringhash["Desc"]).lower()
         unlock_list = []
         for item in data[line].get(stringhash["CompleteOpenQuest"]):
-            unlock_list.append(id_dict[item]) if item in id_dict else unlock_list.append("UN-"+str(item))
+            unlock_list.append(id_dict[item] if item in id_dict else f"UN-{str(item)}")
         unlock_key = "<br>".join(unlock_list)
         item_dict = {item: count for item, count in zip(data[line].get(stringhash["NeedItem"]), data[line].get(stringhash["NeedItemCount"]))}
         item_list = []

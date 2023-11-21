@@ -1,4 +1,4 @@
-from .read_gde import read_gde
+from .read_data import read_gde
 
 def string_hash():
     '''Creates a dictionary containing all the text keyname we use and the associated keynames in the game files.'''
