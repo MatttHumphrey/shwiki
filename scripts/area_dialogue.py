@@ -1,4 +1,4 @@
-from .utils.dialogue_task_dict import dialogue_task_dict
+from .utils.task_dicts import dialogue_task_dict
 from .utils.pywikibot_login import wiki_upload
 from .utils.locate_task import locate_task
 from .utils.string_hash import string_hash
