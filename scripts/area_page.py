@@ -1,6 +1,5 @@
-from .utils.task_dicts import area_unlocks_dict
+from .utils.task_dicts import area_tasks_dict, area_unlocks_dict
 from .utils.pywikibot_login import wiki_upload
-from .utils.task_dicts import area_tasks_dict
 from .utils.output_file import output_file
 from .utils.read_data import read_i2
 

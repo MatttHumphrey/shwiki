@@ -1,12 +1,11 @@
 import collections
 
 from .utils.pywikibot_login import wiki_upload
+from .utils.read_data import read_gde, read_i2
 from .utils.match_location import area_dict
 from .utils.output_file import output_file
 from .utils.string_hash import string_hash
 from .utils.hard_items import HARD_ITEMS
-from .utils.read_data import read_gde
-from .utils.read_data import read_i2
 
 def hard_items(upload = False):
     '''

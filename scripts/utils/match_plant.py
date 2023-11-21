@@ -1,9 +1,8 @@
 import difflib
 import sys
 
+from .read_data import read_gde, read_i2
 from .string_hash import string_hash
-from .read_data import read_gde
-from .read_data import read_i2
 
 def plant_dict():
     '''Generates a dictionary with all the endangered plants in the game files and their corresponding in game name.'''

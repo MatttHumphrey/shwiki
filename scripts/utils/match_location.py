@@ -1,9 +1,8 @@
 import difflib
 import sys
 
+from .read_data import read_gde, read_i2
 from .string_hash import string_hash
-from .read_data import read_gde
-from .read_data import read_i2
 
 def area_dict():
     '''Generates a dictionary with all the areas in the game files and their in game names.'''
