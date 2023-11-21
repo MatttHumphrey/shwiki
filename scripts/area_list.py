@@ -1,5 +1,5 @@
 from .utils.output_file import output_file
-from .utils.area_dict import area_dict
+from .utils.match_location import area_dict
 
 def area_list():
     '''Generates a list of all in file area names.'''

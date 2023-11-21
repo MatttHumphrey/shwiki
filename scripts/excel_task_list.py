@@ -1,8 +1,8 @@
 import pandas as pd
 
+from .utils.match_location import area_dict
 from .utils.output_file import output_file
 from .utils.string_hash import string_hash
-from .utils.area_dict import area_dict
 from .utils.read_gde import read_gde
 from .utils.read_i2 import read_i2
 
