@@ -44,6 +44,30 @@ def task_list(location, loc_id, upload = False):
         item_key = "<br>".join(item_list)
         reward_list = []
         for reward in data[line].get(stringhash["Reward"]):
+            if reward == "Flower_lily_pouch_01":
+                reward_list.append("[[File:LilySeedBag.png|21x21px]] [[Seed_Packets#Lily Seed Packet|Lily Seed Packet]]")
+                continue
+            elif reward == "Flower_iris_pouch_01":
+                reward_list.append("[[File:IrisSeedBag.png|21x21px]] [[Seed_Packets#Iris Seed Packet|Iris Seed Packet]]")
+                continue
+            elif reward == "Flower_hydrangea_pouch_01":
+                reward_list.append("[[File:HydrangeaSeedBag.png|21x21px]] [[Seed_Packets#Hydrangea Seed Packet|Hydrangea Seed Packet]]")
+                continue
+            elif reward == "Flower_eucalyptus_pouch_01":
+                reward_list.append("[[File:EucalyptusSeedBag.png|21x21px]] [[Seed_Packets#Eucalyptus Seed Packet|Eucalyptus Seed Packet]]")
+                continue
+            elif reward == "Flower_pinkrose_pouch_01":
+                reward_list.append("[[File:PinkRoseSeedBag.png|21x21px]] [[Seed_Packets#Pink Rose Seed Packet|Pink Rose Seed Packet]]")
+                continue
+            elif reward == "Flower_tulip_pouch_01":
+                reward_list.append("[[File:TulipSeedBag.png|21x21px]] [[Seed_Packets#Tulip Seed Packet|Tulip Seed Packet]]")
+                continue
+            elif reward == "Flower_sunflower_pouch_01":
+                reward_list.append("[[File:SunflowerSeedBag.png|21x21px]] [[Seed_Packets#Sunflower Seed Packet|Sunflower Seed Packet]]")
+                continue
+            elif reward == "Flower_hibiscus_pouch_01":
+                reward_list.append("[[File:HibiscusSeedBag.png|21x21px]] [[Seed_Packets#Hibiscus Seed Packet|Hibiscus Seed Packet]]")
+                continue
             reward_name, reward_level = reward.split("_")
             reward_list.append("{{Item | "+descriptions.get("categoryname_"+reward_name.lower())+" | "+reward_level.lstrip("0")+"}}")
         reward_key = "<br>".join(reward_list)
