@@ -30,6 +30,7 @@ def task_list(location, loc_id, upload = False):
         unlock_list = []
         for item in data[line].get(stringhash["CompleteOpenQuest"]):
             unlock_list.append(id_dict[item] if item in id_dict else f"UN-{str(item)}")
+        unlock_list.sort(key = lambda x: int(x.split('-')[1]))
         unlock_key = "<br>".join(unlock_list)
         item_dict = {item: count for item, count in zip(data[line].get(stringhash["NeedItem"]), data[line].get(stringhash["NeedItemCount"]))}
         item_list = []
