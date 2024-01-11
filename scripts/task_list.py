@@ -21,7 +21,7 @@ def task_list(location, loc_id, upload = False):
     stringhash = string_hash()
     id_dict = task_numbers(location, loc_id)
     namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) is not None else descriptions.get("namekey_"+location)
-    output.append("\'''Note:\''' Due to the game's constant updates, the tasks on this page may not always be accurate. If you have any new information, feel free to go to the \""+namekey+"/Tasks\" page and edit accordingly.\n\n{| class=\"article-table\" style=\"font-size:15px;\"\n!style=\"width:100px\"|# \n!Name \n!style=\"width:100px\"|Opens \n!Items \n!Rewards \n")
+    output.append("\'''Note:\''' Due to the game's constant updates, the tasks on this page may not always be accurate. If you have any new information, feel free to go to the \""+namekey+"/Tasks\" page and edit accordingly.\n\n{| class=\"article-table\" style=\"font-size:15px;\"\n!style=\"width:100px\"|#\n!Name\n!style=\"width:100px\"|Opens\n!Items\n!Rewards\n")
     for line in data:
         if data[line].get(stringhash["_gdeSchema"]) != "Quest" or data[line].get(stringhash["CompleteAreaKey"]).lower() != location:
             continue
