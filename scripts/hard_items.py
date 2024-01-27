@@ -14,19 +14,19 @@ def hard_items(upload = False):
     Keyword Arguments:
     upload              - Optional trigger to upload the page automatically to the wiki
     '''
-    descriptions = read_i2()
-    data = read_gde()
-    area_list = list(area_dict().keys())
-    stringhash = string_hash()
+    gde_data = read_gde()
+    i2_data = read_i2()
+    stringhash = string_hash(gde_data)
+    area_list = list(area_dict(gde_data, i2_data).keys())
     output = []
     for location in area_list:
-        namekey = descriptions.get("questtitle_"+location.lower()) if descriptions.get("questtitle_"+location.lower()) is not None else descriptions.get("namekey_"+location.lower())
+        namekey = i2_data.get("questtitle_"+location.lower()) if i2_data.get("questtitle_"+location.lower()) is not None else i2_data.get("namekey_"+location.lower())
         output.append(f"=={namekey}==\n")
         area_total = {item: 0 for item in HARD_ITEMS}
-        for line in data:
-            if data[line].get(stringhash["_gdeSchema"]) == "Quest" and data[line].get(stringhash["AreaGroupKey"]).lower() == location:
-                items = data[line].get(stringhash["NeedItem"])
-                counts = data[line].get(stringhash["NeedItemCount"])
+        for line in gde_data:
+            if gde_data[line].get(stringhash["_gdeSchema"]) == "Quest" and gde_data[line].get(stringhash["AreaGroupKey"]).lower() == location:
+                items = gde_data[line].get(stringhash["NeedItem"])
+                counts = gde_data[line].get(stringhash["NeedItemCount"])
                 for item, count in zip(items, counts):
                     if item.lower() in HARD_ITEMS:
                         area_total[item.lower()] = area_total.get(item.lower(), 0) + count
@@ -38,7 +38,7 @@ def hard_items(upload = False):
                 output.append("-\n|[[File:LemonMoney.png|30px]] [[Lemon Event|Money]]\n")
             else:
                 item_name, item_level = ids.split("_")
-                output.append("-\n|{{Item | "+descriptions.get("categoryname_"+item_name.lower())+" | "+item_level.lstrip("0")+"}}\n")
+                output.append("-\n|{{Item | "+i2_data.get("categoryname_"+item_name.lower())+" | "+item_level.lstrip("0")+"}}\n")
             output.append(f"|{sorted_totals.get(ids)}\n|")
         output.append("}\n\n")
     text = "".join(output)

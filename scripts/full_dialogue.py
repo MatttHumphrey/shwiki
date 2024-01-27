@@ -8,19 +8,19 @@ def full_dialogue():
     Generates all the dialogue spoken throughout the game
     Useful for getting dialogue for events, since they do not have a specific area tag.
     '''
+    gde_data = read_gde()
+    i2_data = read_i2()
     characters = []
     counter = 0
-    data = read_gde()
-    descriptions = read_i2()
     output = []
     prev_area, prev_quest = None, None
-    stringhash = string_hash()
-    task_dict = dialogue_task_dict()
-    for line in data:
-        if data[line].get(stringhash["_gdeSchema"]) == "Dialogue":
-            current_quest = data[line].get(stringhash["Group"])
-            quest_key = descriptions.get(data[line].get(stringhash["DescriptionKey"]).lower())
-            char_key = data[line].get(stringhash["Actor"])
+    stringhash = string_hash(gde_data)
+    task_dict = dialogue_task_dict(gde_data)
+    for line in gde_data:
+        if gde_data[line].get(stringhash["_gdeSchema"]) == "Dialogue":
+            current_quest = gde_data[line].get(stringhash["Group"])
+            quest_key = i2_data.get(gde_data[line].get(stringhash["DescriptionKey"]).lower())
+            char_key = gde_data[line].get(stringhash["Actor"])
             current_area = locate_task(current_quest, task_dict)
             if "cat" in char_key.lower():
                 char_key = char_key.replace("Cat", "", 1)

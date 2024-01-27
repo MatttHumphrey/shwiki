@@ -4,20 +4,18 @@ import sys
 from .read_data import read_gde, read_i2
 from .string_hash import string_hash
 
-def area_dict():
+def area_dict(gde_data, i2_data):
     '''Generates a dictionary with all the areas in the game files and their in game names.'''
     areas = {}
-    descriptions = read_i2()
-    data = read_gde()
-    stringhash = string_hash()
+    stringhash = string_hash(gde_data)
     remove_list = ['', "winterfair2022_shack", "winterfair2022_icerink", "winterfair2022_sledding",
                    "winterfair2022_ferriswheel", "winterfair2022_train"]
-    for line in data:
-        if data[line].get(stringhash["_gdeSchema"]) == "Quest":
-            area_key = data[line].get(stringhash["AreaGroupKey"], "").lower()
+    for line in gde_data:
+        if gde_data[line].get(stringhash["_gdeSchema"]) == "Quest":
+            area_key = gde_data[line].get(stringhash["AreaGroupKey"], "").lower()
             if area_key and area_key not in areas and area_key not in remove_list:
-                area_desc_key = f"namekey_{area_key}" if f"namekey_{area_key}" in descriptions else f"questtitle_{area_key}"
-                area_desc = descriptions.get(area_desc_key, "").lower()
+                area_desc_key = f"namekey_{area_key}" if f"namekey_{area_key}" in i2_data else f"questtitle_{area_key}"
+                area_desc = i2_data.get(area_desc_key, "").lower()
                 areas[area_key] = area_desc
     return areas
 
@@ -32,7 +30,9 @@ def match_location(location):
     Return Value:
     String listing the area's in file name.
     '''
-    valid_areas = area_dict()
+    gde_data = read_gde()
+    i2_data = read_i2()
+    valid_areas = area_dict(gde_data, i2_data)
     if location.lower() in valid_areas:
         location = location.lower() if location.lower() in valid_areas.keys() else list(valid_areas.keys())[list(valid_areas.values()).index(location.lower())]
         return location
