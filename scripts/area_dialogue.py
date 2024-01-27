@@ -1,7 +1,6 @@
-from .utils.task_dicts import dialogue_task_dict
+from .utils.task_dicts import dialogue_task_dict, locate_task
 from .utils.pywikibot_login import wiki_upload
 from .utils.read_data import read_gde, read_i2
-from .utils.locate_task import locate_task
 from .utils.string_hash import string_hash
 from .utils.output_file import output_file
 
@@ -17,19 +16,20 @@ def area_dialogue(location, upload = False):
     Return Value:
     A list of all characters who have spoken in the area, used only in area_page.py and unnecessary otherwise.
     '''
+    gde_data = read_gde()
+    i2_data = read_i2()
+    stringhash = string_hash(gde_data)
+    task_dict = dialogue_task_dict(gde_data)
     characters = []
     counter = 0
-    data = read_gde()
-    descriptions = read_i2()
     output = []
-    prev_area, prev_quest = None, None
-    stringhash = string_hash()
-    task_dict = dialogue_task_dict()
-    for line in data:
-        if data[line].get(stringhash["_gdeSchema"]) == "Dialogue":
-            current_quest = data[line].get(stringhash["Group"])
-            quest_key = descriptions.get(data[line].get(stringhash["DescriptionKey"]).lower())
-            char_key = data[line].get(stringhash["Actor"])
+    prev_area = None
+    prev_quest = None
+    for line in gde_data:
+        if gde_data[line].get(stringhash["_gdeSchema"]) == "Dialogue":
+            current_quest = gde_data[line].get(stringhash["Group"])
+            quest_key = i2_data.get(gde_data[line].get(stringhash["DescriptionKey"]).lower())
+            char_key = gde_data[line].get(stringhash["Actor"])
             current_area = locate_task(current_quest, task_dict)
             if str(current_area).lower() != location:
                 continue
@@ -58,7 +58,7 @@ def area_dialogue(location, upload = False):
         with open(output_file("area_dialogue_output.txt"), "w", encoding="utf8") as output:
             output.writelines(text)
     else:
-        namekey = descriptions.get("questtitle_"+location) if descriptions.get("questtitle_"+location) is not None else descriptions.get("namekey_"+location)
+        namekey = i2_data.get("questtitle_"+location) if i2_data.get("questtitle_"+location) is not None else i2_data.get("namekey_"+location)
         wiki_upload("User:WFrck/"+namekey+"/Dialogue", text)
     print("Action completed.")
     return characters

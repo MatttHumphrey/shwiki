@@ -12,15 +12,15 @@ def game_items(upload = False):
     Keyword Arguments:
     upload              - Optional trigger to upload the page automatically to the wiki
     '''
-    data = read_gde()
-    descriptions = read_i2()
+    gde_data = read_gde()
+    i2_data = read_i2()
+    stringhash = string_hash(gde_data)
     item_totals = {}
     output = []
-    stringhash = string_hash()
-    for line in data:
-        if data[line].get(stringhash["_gdeSchema"]) == "Quest":
-            items = data[line].get(stringhash["NeedItem"])
-            counts = data[line].get(stringhash["NeedItemCount"])
+    for line in gde_data:
+        if gde_data[line].get(stringhash["_gdeSchema"]) == "Quest":
+            items = gde_data[line].get(stringhash["NeedItem"])
+            counts = gde_data[line].get(stringhash["NeedItemCount"])
             for item, count in zip(items, counts):
                 if item.lower() != "lobbyeventpoint":
                     item_totals[item.lower()] = item_totals.get(item.lower(), 0) + count
@@ -32,7 +32,7 @@ def game_items(upload = False):
             output.append(f"|{count}\n|-")
         else:
             item_name, item_level = ids.split("_")
-            output.append("\n|{{Item | "+descriptions.get("categoryname_"+item_name.lower())+" | "+item_level.lstrip("0")+"}}\n")
+            output.append("\n|{{Item | "+i2_data.get("categoryname_"+item_name.lower())+" | "+item_level.lstrip("0")+"}}\n")
             output.append(f"|{count}\n|-")
     text_list = list("".join(output))
     text_list[-1] = "}"
