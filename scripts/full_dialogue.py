@@ -1,6 +1,5 @@
-from .utils.task_dicts import dialogue_task_dict
+from .utils.task_dicts import dialogue_task_dict, locate_task
 from .utils.read_data import read_gde, read_i2
-from .utils.locate_task import locate_task
 from .utils.output_file import output_file
 from .utils.string_hash import string_hash
 
