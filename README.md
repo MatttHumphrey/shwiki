@@ -1,5 +1,5 @@
 # shwiki
-shwiki is a command-line utility written in Python to assist with maintenance of the [Sunny House Wiki](https://sunny-house.fandom.com/). Capabilities include creation of "Area", "Botanical Plant" and a collection of "Area/Game Item" pages, plus spreadsheet export functionality.
+shwiki is a command-line utility written in Python to assist with maintenance of the [Sunny House Wiki](https://sunny-house.fandom.com/).
 
 ## Installation
 ```console
