@@ -14,9 +14,9 @@ def game_items(upload = False):
     '''
     gde_data = read_gde()
     i2_data = read_i2()
+    stringhash = string_hash(gde_data)
     item_totals = {}
     output = []
-    stringhash = string_hash(gde_data)
     for line in gde_data:
         if gde_data[line].get(stringhash["_gdeSchema"]) == "Quest":
             items = gde_data[line].get(stringhash["NeedItem"])

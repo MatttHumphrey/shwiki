@@ -17,9 +17,9 @@ def task_list(location, loc_id, upload = False):
     '''
     gde_data = read_gde()
     i2_data = read_i2()
-    output = []
     stringhash = string_hash(gde_data)
     id_dict = task_numbers(location, loc_id, gde_data)
+    output = []
     namekey = i2_data.get("questtitle_"+location) if i2_data.get("questtitle_"+location) is not None else i2_data.get("namekey_"+location)
     output.append("\'''Note:\''' Due to the game's constant updates, the tasks on this page may not always be accurate. If you have any new information, feel free to go to the \""+namekey+"/Tasks\" page and edit accordingly.\n\n{| class=\"article-table\" style=\"font-size:15px;\"\n!style=\"width:100px\"|#\n!Name\n!style=\"width:100px\"|Opens\n!Items\n!Rewards\n")
     for line in gde_data:

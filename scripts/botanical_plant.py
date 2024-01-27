@@ -16,8 +16,8 @@ def botanical_plant(plant_name, plant_filename, upload = False):
     '''
     gde_data = read_gde()
     i2_data = read_i2()
-    output = []
     stringhash = string_hash(gde_data)
+    output = []
     for line in gde_data:
         if gde_data[line].get(stringhash["_gdeSchema"]) == "PeriodicalEvent" and gde_data[line].get(stringhash["ItemCategory"]).lower() == "plant_"+plant_name:
             start_date = convert_date(str(gde_data[line].get(stringhash["StartDate"])))

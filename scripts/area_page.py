@@ -20,10 +20,10 @@ def area_page(location, loc_id, upload = False):
     characters = area_dialogue(location, upload)
     gde_data = read_gde()
     i2_data = read_i2()
-    output = []
-    prev_areas = []
     task_dict = area_tasks_dict(gde_data)
     unlocks_dict = area_unlocks_dict(gde_data)
+    output = []
+    prev_areas = []
     namekey = i2_data.get("questtitle_"+location) if i2_data.get("questtitle_"+location) is not None else i2_data.get("namekey_"+location)
     output.append("{{DISPLAYTITLE:"+namekey+"}}\n{{Spoiler}}\n{{InfoboxArea\n|image=<gallery>\n</gallery>\n|unlocksafter=")
     for elem in task_dict[location]:

@@ -18,12 +18,13 @@ def area_dialogue(location, upload = False):
     '''
     gde_data = read_gde()
     i2_data = read_i2()
+    stringhash = string_hash(gde_data)
+    task_dict = dialogue_task_dict(gde_data)
     characters = []
     counter = 0
     output = []
-    prev_area, prev_quest = None, None
-    stringhash = string_hash(gde_data)
-    task_dict = dialogue_task_dict(gde_data)
+    prev_area = None
+    prev_quest = None
     for line in gde_data:
         if gde_data[line].get(stringhash["_gdeSchema"]) == "Dialogue":
             current_quest = gde_data[line].get(stringhash["Group"])
