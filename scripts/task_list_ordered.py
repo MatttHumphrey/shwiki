@@ -76,10 +76,10 @@ def task_numbers(location, loc_id, gde_data):
     id_dict = {}
     count = 1
     tasks = TASK_ORDERS.get(location)
-    stringhash = string_hash()
+    stringhash = string_hash(gde_data)
     for line in tasks:
         id_dict[gde_data[line].get(stringhash["Id"])] = f"{loc_id.upper()}-{count}"
         count += 1
     return id_dict
 
-task_list("outbuilding", "GS", upload = False)
+task_list("kiosk", "TYC", upload = False)
