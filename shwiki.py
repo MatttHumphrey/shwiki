@@ -34,8 +34,8 @@ def create_parser():
     parser.add_argument("-h", "--help", action = "store_true", help = "Shows this help message.")
     subparsers = parser.add_subparsers(title = "subcommands", dest = "subcommand")
 
-    for func, args, help in functions.values():
-        parser_func = subparsers.add_parser(func.__name__, help = help)
+    for func, args, helpstr in functions.values():
+        parser_func = subparsers.add_parser(func.__name__, help = helpstr)
         parser_func.set_defaults(func = func)
         parser_help = {"upload": "Flag to upload page straight to wiki. Otherwise writes a text file to the output folder.",
                        "location": "Location to run the function on. Accepts both in game and file names of areas.",
@@ -63,10 +63,10 @@ def main():
         parser.print_help()
         return
 
-    (func, argspec, help) = functions.get(args.subcommand)
+    (func, argspec, _) = functions.get(args.subcommand)
     if func:
         func_args = {}
-        for arg, arg_type in argspec:
+        for arg, _ in argspec:
             value = getattr(args, arg)
             if arg == "location":
                 value = match_location(value)
