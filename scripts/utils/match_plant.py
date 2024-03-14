@@ -5,7 +5,15 @@ from .read_data import read_gde, read_i2
 from .string_hash import string_hash
 
 def plant_dict():
-    '''Generates a dictionary with all the endangered plants in the game files and their corresponding in game name.'''
+    '''Generates a dictionary with all the endangered plants in the game files and their corresponding in game name.
+    
+    Keyword Arguments:
+    gde_data            - The gde_data dictionary
+    i2_data             - The i2_data dictionary
+    
+    Return Value:
+    A dictionary containing all the endangered plants in the game files and their in game names.
+    '''
     gde_data = read_gde()
     i2_data = read_i2()
     plants = {}

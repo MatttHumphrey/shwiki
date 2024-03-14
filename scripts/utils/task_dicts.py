@@ -1,7 +1,14 @@
 from .string_hash import string_hash
 
 def area_tasks_dict(gde_data):
-    '''Returns a dictionary containing the names of every area and a list of all the tasks completed throughout that area.'''
+    '''Returns a dictionary containing the names of every area and a list of all the tasks completed throughout that area.
+    
+    Keyword Arguments:
+    gde_data            - The gde_data dictionary
+    
+    Return Value:
+    A dictionary containing the names of every area and a list of all the tasks completed throughout that area.
+    '''
     stringhash = string_hash(gde_data)
     task_dict = {}
     for line in gde_data:
@@ -14,7 +21,14 @@ def area_tasks_dict(gde_data):
     return task_dict
 
 def area_unlocks_dict(gde_data):
-    '''Returns a dictionary containing the names of every area and a list of all the tasks unlocked throughout that area.'''
+    '''Returns a dictionary containing the names of every area and a list of all the tasks unlocked throughout that area.
+    
+    Keyword Arguments:
+    gde_data             - The gde_data dictionary
+    
+    Return Value:
+    A dictionary containing the names of every area and a list of all the tasks unlocked throughout that area.
+    '''
     stringhash = string_hash(gde_data)
     unlocks_dict = {}
     for line in gde_data:
@@ -28,7 +42,13 @@ def area_unlocks_dict(gde_data):
     return unlocks_dict
 
 def dialogue_task_dict(gde_data):
-    '''Returns a dictionary containing the name of every area, and a list of their tasks that trigger dialogue.'''
+    '''Returns a dictionary containing the name of every area, and a list of their tasks that trigger dialogue.
+    
+    Keyword Arguments:
+    gd_data             - The gde_data dictionary
+    
+    Return Value:
+    A dictionary containing the name of every area, and a list of their tasks that trigger dialogue.'''
     stringhash = string_hash(gde_data)
     task_dict = {}
     for line in gde_data:
